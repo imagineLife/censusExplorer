@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "local": "nodemon ./"
+    "local": "nodemon ./",
+    "initLint": "eslint -- --init"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +16,7 @@
     "mongodb": "^3.5.7"
   },
   "devDependencies": {
+    "eslint": "^7.0.0",
     "nodemon": "^2.0.4"
   }
 }
