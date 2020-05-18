@@ -1,7 +1,8 @@
 const express = require("express");
 const { startMongo } = require('./connectToDB')
 const { setEnvVars }  = require('./setEnvVars')
-const {shapeHandler} = require('./handlers/shape')
+const { shapeHandler } = require('./handlers/shape')
+const { tableHandler } = require('./handlers/table')
 async function appInit(){
 	try{
 		await setEnvVars();
@@ -13,6 +14,7 @@ async function appInit(){
 
 		//route-handling
 		app.get('/shape', startMongo, shapeHandler)
+		app.get('/table', startMongo, tableHandler)
 
 		app.listen(process.env.PORT, () => {
 			console.log(`---API listening on port ${process.env.PORT}---`);
