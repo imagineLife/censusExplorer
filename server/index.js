@@ -1,7 +1,11 @@
 const express = require("express");
 const {connectToMongo, startMongo} = require('./connectToDB')
 const { setEnvVars }  = require('./setEnvVars')
-
+const { 
+	isObj,
+	notArr,
+	isObject
+} = require('./helpers');
 async function appInit(){
 	try{
 		await setEnvVars();
@@ -28,8 +32,8 @@ async function appInit(){
 
 					//get key-value
 					let keyedDataVal  = firstDataElement[k]
-					let isObj = typeof keyedDataVal === 'object'
-					if(!isObj){
+					let objType = isObject(keyedDataVal)
+					if(!objType){
 						resObj[k] = typeof keyedDataVal
 						return;
 					}
@@ -41,7 +45,7 @@ async function appInit(){
 					objValKeys.forEach(ovk => {
 						let nestedKeyedDataVal  = firstDataElement[k][ovk]
 						
-						let isNestedObj = typeof nestedKeyedDataVal === 'object'
+						let isNestedObj = isObject(nestedKeyedDataVal)
 						if(!isNestedObj){
 							// console.log(`NOT nested obj: ${k}`);
 							resObj[k][ovk] = typeof keyedDataVal
@@ -54,14 +58,12 @@ async function appInit(){
 						let nestedObjKeys = Object.keys(nestedKeyedDataVal)
 						nestedObjKeys.forEach(nestedObjKey => {
 							let doubleNestedKeyedDataVal  = firstDataElement[k][ovk][nestedObjKey]
-							let isDoubleNestedObj = typeof doubleNestedKeyedDataVal === 'object'
+							let isDoubleNestedObj = isObject(doubleNestedKeyedDataVal)
 							if(!isDoubleNestedObj){
 								// console.log(`NOT nested obj: ${k}`);
 								resObj[k][ovk][nestedObjKey] = typeof doubleNestedKeyedDataVal
 								return;
 							}
-							console.log('IS DOUBLE NESTED OBJ');
-							console.log(nestedObjKey)
 						})
 					})
 				}
