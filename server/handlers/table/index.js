@@ -26,7 +26,14 @@ const tableHandler = async (req, res) => {
 				"Percent Below Poverty|Education|hsGrad":"$percentBelowPoverty.education.hsGrad",
 				"Percent Below Poverty|Education|someCollege":"$percentBelowPoverty.education.someCollege",
 				"Percent Below Poverty|Education|bachPlus":"$percentBelowPoverty.education.bachPlus",
-				"Percent Below Poverty|Education|total":"$percentBelowPoverty.education.total"
+				"Percent Below Poverty|Race|white":"$percentBelowPoverty.race.white",
+				"Percent Below Poverty|Race|black":"$percentBelowPoverty.race.black",
+				"Percent Below Poverty|Race|Native American*":"$percentBelowPoverty.race.Native American*",
+				"Percent Below Poverty|Race|Asian":"$percentBelowPoverty.race.Asian",
+				"Percent Below Poverty|Race|Pacific Islander*":"$percentBelowPoverty.race.Pacific Islander*",
+				"Percent Below Poverty|Race|Mixed":"$percentBelowPoverty.race.Mixed",
+				"Percent Below Poverty|Race|Latino*":"$percentBelowPoverty.race.Latino*",
+				"Percent Below Poverty|Race|total":"$percentBelowPoverty.race.total"
 			})
 			.toArray((err,arr) => {
 				console.log('arr')
