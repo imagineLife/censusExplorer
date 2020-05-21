@@ -1,14 +1,8 @@
 const { flattenRow } = require('./../../helpers')
 const tableHandler = async (req, res) => {
 	try{
-		// let firstDataElement = await req
 		await req
 			.dbCollection
-			// .find({state: "New York"})
-			// .project({
-			// 	state: 1,
-			// 	_id: 0
-			// })
 			.aggregate(
 				[
 					{
@@ -19,8 +13,8 @@ const tableHandler = async (req, res) => {
 				]
 			)
 			.project({
-				_id: 0, 
-				state: 1, 
+				"_id": 0, 
+				"state": 1, 
 				"Percent Below Poverty|Gender|Male": "$percentBelowPoverty.gender.male",
 				"Percent Below Poverty|Gender|Female": "$percentBelowPoverty.gender.female",
 				"Percent Below Poverty|Age|<5": "$percentBelowPoverty.age.<5",
@@ -39,15 +33,6 @@ const tableHandler = async (req, res) => {
 				console.log(arr)
 				return res.json(arr).end()
 			})
-		// 	.find({})
-		// 	.project({state:1})
-			// ctData.aggregate([ { $match : {state: "New York"} } ], function(err,aggDeets){
-			// 	if(err){
-			// 		console.log('agg e')
-			// 		console.log(err)
-					
-			// 	}
-			// })
 	}catch(e){
 		console.log('e')
 		console.log(e)
