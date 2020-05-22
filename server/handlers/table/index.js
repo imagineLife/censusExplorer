@@ -1,17 +1,19 @@
-const { flattenRow } = require('./../../helpers')
+// const { flattenRow } = require('./../../helpers')
 const tableHandler = async (req, res) => {
 	try{
 		await req
 			.dbCollection
-			.aggregate(
-				[
-					{
-						$match: { 
-							state: "New York" 
-						}
-					}
-				]
-			)
+			// .aggregate(
+			// 	[
+			// 		{
+			// 			$match: { 
+			// 				state: "New York" 
+			// 			}
+			// 		}
+			// 	]
+			// )
+			// .find({})
+			.aggregate([{$limit: 5}])
 			.project({
 				"_id": 0, 
 				"state": 1, 
@@ -33,11 +35,47 @@ const tableHandler = async (req, res) => {
 				"Percent Below Poverty|Race|Pacific Islander*":"$percentBelowPoverty.race.Pacific Islander*",
 				"Percent Below Poverty|Race|Mixed":"$percentBelowPoverty.race.Mixed",
 				"Percent Below Poverty|Race|Latino*":"$percentBelowPoverty.race.Latino*",
-				"Percent Below Poverty|Race|total":"$percentBelowPoverty.race.total"
+				"Percent Below Poverty|Race|total":"$percentBelowPoverty.race.total",
+				"Below Poverty|Gender|Male": "$belowPoverty.gender.male",
+				"Below Poverty|Gender|Female": "$belowPoverty.gender.female",
+				"Below Poverty|Age|<5": "$belowPoverty.age.<5",
+				"Below Poverty|Age|5-17": "$belowPoverty.age.5-17",
+				"Below Poverty|Age|18-34": "$belowPoverty.age.18-34",
+				"Below Poverty|Age|35-64": "$belowPoverty.age.35-64",
+				"Below Poverty|Age|65+": "$belowPoverty.age.65+",
+				"Below Poverty|Education|noHS":"$belowPoverty.education.noHS",
+				"Below Poverty|Education|hsGrad":"$belowPoverty.education.hsGrad",
+				"Below Poverty|Education|someCollege":"$belowPoverty.education.someCollege",
+				"Below Poverty|Education|bachPlus":"$belowPoverty.education.bachPlus",
+				"Below Poverty|Race|white":"$belowPoverty.race.white",
+				"Below Poverty|Race|black":"$belowPoverty.race.black",
+				"Below Poverty|Race|Native American*":"$belowPoverty.race.Native American*",
+				"Below Poverty|Race|Asian":"$belowPoverty.race.Asian",
+				"Below Poverty|Race|Pacific Islander*":"$belowPoverty.race.Pacific Islander*",
+				"Below Poverty|Race|Mixed":"$belowPoverty.race.Mixed",
+				"Below Poverty|Race|Latino*":"$belowPoverty.race.Latino*",
+				"Below Poverty|Race|total":"$belowPoverty.race.total",
+				"Total|Gender|Male": "$total.gender.male",
+				"Total|Gender|Female": "$total.gender.female",
+				"Total|Age|<5": "$total.age.<5",
+				"Total|Age|5-17": "$total.age.5-17",
+				"Total|Age|18-34": "$total.age.18-34",
+				"Total|Age|35-64": "$total.age.35-64",
+				"Total|Age|65+": "$total.age.65+",
+				"Total|Education|noHS":"$total.education.noHS",
+				"Total|Education|hsGrad":"$total.education.hsGrad",
+				"Total|Education|someCollege":"$total.education.someCollege",
+				"Total|Education|bachPlus":"$total.education.bachPlus",
+				"Total|Race|white":"$total.race.white",
+				"Total|Race|black":"$total.race.black",
+				"Total|Race|Native American*":"$total.race.Native American*",
+				"Total|Race|Asian":"$total.race.Asian",
+				"Total|Race|Pacific Islander*":"$total.race.Pacific Islander*",
+				"Total|Race|Mixed":"$total.race.Mixed",
+				"Total|Race|Latino*":"$total.race.Latino*",
+				"Total|Race|total":"$total.race.total"
 			})
 			.toArray((err,arr) => {
-				console.log('arr')
-				console.log(arr)
 				return res.json(arr).end()
 			})
 	}catch(e){
