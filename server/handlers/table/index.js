@@ -10,6 +10,7 @@ const tableHandler = async (req, res) => {
 			dbRequest = dbRequest.aggregate([{$limit:5}])
 		}
 
+		//restricts by single-state (:state param)
 		if(req.params.state){
 			let stateArr = req.params.state.match(/[A-Z][a-z]+/g)
 			let thisState = stateArr[0]
@@ -30,6 +31,13 @@ const tableHandler = async (req, res) => {
 		await dbRequest
 			.project(projectionObj)
 			.toArray((err,arr) => {
+				if(err){
+					return res.status(500).json({"Error": err});
+				}
+				if(arr.length < 1){
+					return res.status(422).json({'Error': "Bad State"});
+				}
+				
 				return res.json(arr).end()
 			})
 	}catch(e){
