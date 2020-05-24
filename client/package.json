@@ -4,7 +4,7 @@
   "description": "census-explorer client",
   "main": "index.js",
   "scripts": {
-    "wds" : "webpack-dev-server --mode=development",
+    "wds": "webpack-dev-server --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,6 +17,7 @@
     "webpack-cli": "^3.3.11"
   },
   "devDependencies": {
+    "html-webpack-plugin": "^4.3.0",
     "webpack-dev-server": "^3.11.0"
   }
 }
