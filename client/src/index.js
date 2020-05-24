@@ -1,8 +1,8 @@
 import React from "react"
 import ReactDOM from "react-dom"
 // import App from "./App";
-// import style from "./main.css";
+import "./index.scss";
 
-const App = () => (<p>Census Explorer Client Init</p>);
+const App = () => <main id="app-wrapper">Something Here</main>;
 
 ReactDOM.render(<App />, document.getElementById("app"));
