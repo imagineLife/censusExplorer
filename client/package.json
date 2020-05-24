@@ -4,6 +4,7 @@
   "description": "census-explorer client",
   "main": "index.js",
   "scripts": {
+    "wp": "webpack --mode=production",
     "wds": "webpack-dev-server --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
