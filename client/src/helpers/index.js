@@ -1,5 +1,5 @@
-const fetcher = () => {
-	return fetch()
+const fetcher = (url) => {
+	return fetch(url)
 	.then(res => {
 		if(res.status == 200){
 			res.json().then(jsonRes => {
