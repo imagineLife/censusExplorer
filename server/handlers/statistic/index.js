@@ -18,12 +18,14 @@ const statisticHandler = async (req, res) => {
 			])
 			.toArray((err,arr) => {
 				if(err){
+					req.dbClient.close()
 					return res.status(500).json({"Error": err});
 				}
 				if(arr.length < 1){
+					req.dbClient.close()
 					return res.status(422).json({'Error': "Bad State"});
 				}
-				
+				req.dbClient.close()
 				return res.json(arr).end();
 			})
 	}catch(e){
