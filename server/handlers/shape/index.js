@@ -49,11 +49,12 @@ const shapeHandler = async (req, res) => {
 				})
 			}
 		})
+		req.dbClient.close()
 		return res.json(resObj)
 	}catch(e){
 		console.log('e')
 		console.log(e)
-		
+		req.dbClient.close()
 		res.json({"Error": e})
 	}
 }
