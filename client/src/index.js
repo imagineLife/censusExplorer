@@ -7,6 +7,6 @@ import "./index.scss";
 console.log('SERVER_HOST')
 console.log(process.env.SERVER_HOST)
 
-const App = () => <main id="app-wrapper">Something Here</main>;
+const App = () => <section id="app-wrapper">Something Here</section>;
 
 ReactDOM.render(<App />, document.getElementById("app"));
