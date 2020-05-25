@@ -17,7 +17,6 @@ const statsKeysHandler = async (req, res) => {
 				if(!objType){
 					resArr.push({
 						string: k,
-						val: keyedDataVal,
 						selected: false
 					})
 					return;
@@ -34,7 +33,6 @@ const statsKeysHandler = async (req, res) => {
 						// console.log(`NOT nested obj: ${k}`);
 						resArr.push({
 							string: `${k}.${ovk}`,
-							val: keyedDataVal,
 							selected: false
 						})
 						return;
@@ -50,7 +48,6 @@ const statsKeysHandler = async (req, res) => {
 							// console.log(`NOT nested obj: ${k}`);
 							resArr.push({
 								string: `${k}.${ovk}.${nestedObjKey}`,
-								val: doubleNestedKeyedDataVal,
 								selected: k === 'percentBelowPoverty' && ovk === 'gender' && nestedObjKey === 'male' ? true : false
 							})
 							return;
