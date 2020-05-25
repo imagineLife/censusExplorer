@@ -15,6 +15,7 @@ const startMongo = async (req, res, next) => {
 
         //pass collection to req. obj
         req.dbCollection = statesCollection;
+        req.dbClient = client;
         next();
     } catch (e) {
         console.error(e);
