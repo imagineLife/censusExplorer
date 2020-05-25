@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "wp": "webpack --mode=production",
-    "wds": "webpack-dev-server --mode=development",
+    "wds": "webpack-dev-server",
+    "local": "npm run wds -- --env.mode=development --env.SERVER_HOST=http://localhost:9000",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
