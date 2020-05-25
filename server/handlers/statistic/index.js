@@ -27,7 +27,45 @@ const statisticHandler = async (req, res) => {
 					return res.status(422).json({'Error': "Bad State"});
 				}
 				req.dbClient.close()
-				return res.json({stat: defaultStatString, data: arr}).end();
+
+				//stats collective vals
+				let max = null, min = null, total = null, itms = null, median = null;
+				arr.forEach(itm => {
+					let yVal = parseFloat(itm.y)
+					itms ++;
+
+					//first iteration
+					if(!max){
+						max = yVal
+					}
+					if(!min){
+						min = yVal
+					}
+
+					//update stats
+					total = total += yVal
+
+					if(yVal < min){
+						min = yVal
+					}
+
+					if(yVal > max){
+						max = yVal
+					}
+				})
+
+				//finding median
+				let sorted = arr.sort((a,b) => parseFloat(b.y) - parseFloat(a.y))
+				median = sorted[26].y
+
+				return res.json({
+					stat: defaultStatString, 
+					data: arr,
+					min,
+					max,
+					avg: total / itms,
+					median
+				}).end();
 			})
 	}catch(e){
 		console.log('e')
