@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Dropdown.scss';
 
 const Dropdown = ({
@@ -10,6 +10,31 @@ const Dropdown = ({
 }) => {
   
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  
+  useEffect(() => {
+    const handleDocumentClick = e => {
+    	console.log('handleDocumentClick');
+      if (
+        dropdownRef.current
+      ) {
+
+        const dropdownNode = dropdownRef.current;
+        let t = e.target
+
+        // if the dropdown is clicked, toggle
+        if (dropdownNode.contains(t)) {
+        	setIsOpen(!isOpen)
+        }else{
+        	setIsOpen(false)
+        }
+      }
+    };
+    document.addEventListener('click', handleDocumentClick);
+    return () => {
+      document.removeEventListener('click', handleDocumentClick);
+    };
+  }, [isOpen]);
 
   return (
     <div
@@ -24,10 +49,11 @@ const Dropdown = ({
 
       <div className="dropdown-wrapper">
         <div
+        	ref={dropdownRef}
           className="dropdown-input"
-          // onClick={() => {
-          //     setIsOpen(!isOpen);
-          // }}
+          onClick={() => {
+              setIsOpen(!isOpen);
+          }}
         >
           <p className="eval-form-default">{displayText}</p>
         </div>
