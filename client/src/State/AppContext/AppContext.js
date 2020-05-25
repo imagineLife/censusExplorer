@@ -10,17 +10,19 @@ const AppContext = createContext();
 const { Provider } = AppContext;
 
 const AppProvider = ({children}) => {
-	let [statsData, setStatsData] = useState(null)
-	let [fetchedStats, setFetchedStats] = useState(false)
+	const [statsData, setStatsData] = useState(null)
+	const [fetchedStats, setFetchedStats] = useState(false)
+	const [statsUrl] = useState(`${process.env.SERVER_HOST}/statistic`);
 
+	//fetch stats 
 	useEffect(() => {
 		if(!statsData && !fetchedStats){
-			fetcher(process.env.SERVER_HOST).then(fetchRes => {
-				console.log('fetchRes')
-				console.log(fetchRes)
-				
-			})
-			setFetchedStats(false)
+			const fetchStats = async () => {
+				let statsRes = await fetcher(statsUrl)
+				setStatsData(statsRes)
+			}
+			fetchStats();
+			setFetchedStats(true)
 		}
 	}, [statsData, fetchedStats])
 	return(
