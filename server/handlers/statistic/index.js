@@ -4,6 +4,7 @@ const statisticHandler = async (req, res) => {
 		//prepare dbrequest
 		let dbRequest = req.dbCollection
 
+		let defaultStatString = 'percentBelowPoverty.gender.male'
 		await dbRequest
 			.aggregate([
 			{
@@ -12,7 +13,7 @@ const statisticHandler = async (req, res) => {
 					"x": "$state", 
 
 					//default to percent-below-poverty men @ each state
-					"y": "$percentBelowPoverty.gender.male",
+					"y": `$${defaultStatString}`,
 				}
 			}
 			])
@@ -26,7 +27,7 @@ const statisticHandler = async (req, res) => {
 					return res.status(422).json({'Error': "Bad State"});
 				}
 				req.dbClient.close()
-				return res.json(arr).end();
+				return res.json({stat: defaultStatString, data: arr}).end();
 			})
 	}catch(e){
 		console.log('e')
