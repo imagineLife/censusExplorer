@@ -1,5 +1,6 @@
 import React, { useContext } from "react"
 import ReactDOM from "react-dom"
+import './reset.css'
 import './normalize.css'
 import "./index.scss";
 import { AppProvider } from './State/AppContext/AppContext'
