@@ -1,12 +1,16 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import './normalize.css'
-// import App from "./App";
 import "./index.scss";
+import { AppProvider } from './State/AppContext/AppContext'
 
-console.log('SERVER_HOST')
-console.log(process.env.SERVER_HOST)
+const App = () => <section id="app-wrapper">App Component</section>;
 
-const App = () => <section id="app-wrapper">Something Here</section>;
+const rootElement = document.getElementById("app")
 
-ReactDOM.render(<App />, document.getElementById("app"));
+if(rootElement !== null){
+	ReactDOM.render(
+		<AppProvider>
+			<App />
+		</AppProvider>, rootElement);
+}
