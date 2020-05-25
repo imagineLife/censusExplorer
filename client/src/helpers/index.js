@@ -1,19 +1,16 @@
-const fetcher = (url) => {
-	return fetch(url)
-	.then(res => {
-		if(res.status == 200){
-			res.json().then(jsonRes => {
-				return { result: jsonRes }
-			})
-		}else{
-			res.json().then(jsonRes => {
-				return {"Error": "non-200"}	
-			})
-		}
-	})
-	.catch(e => {
-		return {"Error": e}
-	})
+const fetcher = async (url, opts) => {
+	let fetchOpts = opts || {}
+	let fetchRes = await fetch(url, fetchOpts)
+	
+	if(fetchRes.status == 200){
+		fetchRes.json().then(jsonRes => {
+			return { result: jsonRes }
+		})
+	}else{
+		fetchRes.json().then(jsonRes => {
+			return {"Error": "non-200"}	
+		})
+	}
 }
 
 export {
