@@ -1,6 +1,7 @@
 import React, { 
 	createContext,
-	useState
+	useState,
+	useEffect
 } from 'react';
 
 //helper fns
@@ -12,8 +13,16 @@ const AppProvider = ({children}) => {
 	let [statsData, setStatsData] = useState(null)
 	let [fetchedStats, setFetchedStats] = useState(false)
 
-	
-
+	useEffect(() => {
+		if(!statsData && !fetchedStats){
+			fetcher(process.env.SERVER_HOST).then(fetchRes => {
+				console.log('fetchRes')
+				console.log(fetchRes)
+				
+			})
+			setFetchedStats(false)
+		}
+	}, [statsData, fetchedStats])
 	return(
 		<Provider value={{
 			statsData
