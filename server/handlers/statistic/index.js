@@ -1,3 +1,5 @@
+const ar = require('d3-array')
+
 const statisticHandler = async (req, res) => {
 	try{
 
@@ -56,7 +58,6 @@ const statisticHandler = async (req, res) => {
 
 				//finding median
 				let sorted = arr.sort((a,b) => parseFloat(b.y) - parseFloat(a.y))
-				median = sorted[26].y
 
 				return res.json({
 					stat: defaultStatString, 
@@ -64,7 +65,9 @@ const statisticHandler = async (req, res) => {
 					min,
 					max,
 					avg: total / itms,
-					median
+					median: parseFloat(ar.median(arr, d => d.y).toFixed(2)),
+					variance: parseFloat(ar.variance(arr, d => d.y).toFixed(2)),
+					["standard Deviation"]: parseFloat(ar.deviation(arr, d => d.y).toFixed(2))
 				}).end();
 			})
 	}catch(e){
