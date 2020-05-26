@@ -3,6 +3,8 @@ import ReactDOM from "react-dom"
 import './reset.css'
 import './normalize.css'
 import "./index.scss";
+
+//State
 import { AppProvider } from './State/AppContext/AppContext'
 
 //Components
