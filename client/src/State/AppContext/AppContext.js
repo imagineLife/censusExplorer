@@ -22,7 +22,7 @@ const AppProvider = ({children}) => {
 	useEffect(() => {
 		if(!statsList && !fetchedStatsList){
 			const fetchStatsKeys = async () => {
-				let statsRes = await fetcher(statsKeysUrl)
+				let statsRes = await fetcher(`${statsKeysUrl}/${selectedStatKey}`)
 				setStatsData(statsRes)
 			}
 			fetchStatsKeys();
