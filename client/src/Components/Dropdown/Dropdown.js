@@ -36,6 +36,13 @@ const Dropdown = ({
     };
   }, [isOpen]);
 
+  const ddDisplayBoxProps = {
+    ref: dropdownRef,
+    className: "dd-display-box",
+    onClick: () => {
+      setIsOpen(!isOpen);
+    }
+  }
   return (
     <div
       onClick={onClick && onClick}
@@ -48,13 +55,7 @@ const Dropdown = ({
       )}
 
       <div className="dd-wrapper">
-        <div
-        	ref={dropdownRef}
-          className="dropdown-input"
-          onClick={() => {
-              setIsOpen(!isOpen);
-          }}
-        >
+        <div {...ddDisplayBoxProps}>
           <p className="display-text">{displayText}</p>
         </div>
         {isOpen && <ul className="dd-menu">{children}</ul>}
