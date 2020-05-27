@@ -1,5 +1,4 @@
-$box-shadow-transparent: rgba(0,0,0,.15);
-$black-med: rgb(25,25,25);
+@import 'src/palette';
 
 .eval-form {
   margin-top: 4px;
@@ -13,8 +12,8 @@ $black-med: rgb(25,25,25);
 }
 .display-text {
   color: $black-med;
-  font-size: 14px;
-  line-height: 18px;
+  font-size: $font-normal;
+  line-height: 2;
   pointer-events: none;
 }
 .dd-wrapper {
@@ -53,9 +52,8 @@ $black-med: rgb(25,25,25);
 
 .dd-menu {
   top: 100%;
-  right: -2px;
-  width: 103%;
-  margin-top: 5px;
+  width: 98%;
+  margin: 5px 0% 0 2%;
   max-height: 235px;
   border-radius: 5px;
   background-color: white;
@@ -78,7 +76,7 @@ $black-med: rgb(25,25,25);
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: $black-med;
-  font-size: 14px;
+  font-size: $font-normal;
   line-height: 1.75;
   cursor: pointer;
   padding: 8px 10px;
@@ -106,7 +104,7 @@ $black-med: rgb(25,25,25);
 .eval-form-label {
   font-family: 'Muli', sans-serif;
   color: $black-med;
-  font-size: 14px;
+  font-size: $font-normal;
   line-height: 18px;
   width: 90px;
   margin-right: 15px;
