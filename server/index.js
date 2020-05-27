@@ -4,7 +4,8 @@ const { setEnvVars }  = require('./setEnvVars')
 const { 
 	tableHandler, 
 	shapeHandler,
-	statisticHandler
+	statisticHandler,
+	statsKeysHandler
 } = require('./handlers')
 async function appInit(){
 	try{
@@ -35,6 +36,8 @@ async function appInit(){
 		app.get('/shape', startMongo, shapeHandler)
 		app.get('/table', startMongo, tableHandler)
 		app.get('/table/:state', startMongo, tableHandler)
+		app.get('/statsKeys', startMongo, statsKeysHandler)
+		app.get('/statsKeys/:statsKey', startMongo, statsKeysHandler)
 		app.get('/statistic', startMongo, statisticHandler)
 		// app.get('/statistic/:type', startMongo, statisticHandler)
 
