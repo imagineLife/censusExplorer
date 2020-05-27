@@ -12,25 +12,30 @@ import { AppContext } from './../State/AppContext/AppContext'
 
 const StatsViewer = () => {
 
-	const {statsData} = useContext(AppContext);
+	const {
+		statsData, 
+		statsList,
+		selectedStatKey, 
+		setSelectedStatKey
+	} = useContext(AppContext);
 	
 	let svContent = <p>loading stats data...</p>
 
-	if(statsData){
+	if(statsData && selectedStatKey && statsList){
+
 		svContent = <Fragment>
 				<header className="stats-header">
 					<h2>Statistics Highlights</h2>
 					<sub>Details on a single statistic</sub>
 					<Dropdown
+						displayText={selectedStatKey}
 						label="Currently viewing:"
 					  className="stat-picker"
 					  onClick={() => { console.log('CLICKED DD')}}
 					>
-						<p>1</p>
-						<p>2</p>
-						<p>3</p>
-						<p>4</p>
-						<p>5</p>
+						{statsList.map(({string, selected}, idx) => (
+							<p key={`single-stat-${string}`}>{string}</p>)
+						)}
 					</Dropdown>
 				</header>
 			</Fragment>
