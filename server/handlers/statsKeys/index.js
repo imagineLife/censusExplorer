@@ -1,10 +1,12 @@
 const { isObject } = require('./../../helpers');
 
 const statsKeysHandler = async (req, res) => {
-	let statsKey = req.params.statsKey
-	let statsKeys = statsKey.split('.')
-	console.log('statsKeys')
-	console.log(statsKeys)
+	let statsKeys = ['percentBelowPoverty', 'gender', 'male'];
+	
+	if(req.params.statsKey){
+		let statsKey = req.params.statsKey
+		statsKeys = statsKey.split('.')
+	}
 	
 	try{
 		let firstDataElement = await req.dbCollection.findOne()
