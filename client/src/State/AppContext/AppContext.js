@@ -23,7 +23,7 @@ const AppProvider = ({children}) => {
 		if(!statsList && !fetchedStatsList){
 			const fetchStatsKeys = async () => {
 				let statsRes = await fetcher(`${statsKeysUrl}/${selectedStatKey}`)
-				setStatsData(statsRes)
+				setStatsList(statsRes)
 			}
 			fetchStatsKeys();
 			setFetchedStatsList(true)
@@ -45,7 +45,10 @@ const AppProvider = ({children}) => {
 	
 	return(
 		<Provider value={{
-			statsData
+			statsData,
+			statsList,
+			selectedStatKey, 
+			setSelectedStatKey
 		}}>
 			{children}
 		</Provider>
