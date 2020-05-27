@@ -47,7 +47,7 @@ const Dropdown = ({
         </label>
       )}
 
-      <div className="dropdown-wrapper">
+      <div className="dd-wrapper">
         <div
         	ref={dropdownRef}
           className="dropdown-input"
@@ -57,7 +57,7 @@ const Dropdown = ({
         >
           <p className="display-text">{displayText}</p>
         </div>
-        {isOpen && <ul className="eval-form-input-menu">{children}</ul>}
+        {isOpen && <ul className="dd-menu">{children}</ul>}
       </div>
     </div>
   );
