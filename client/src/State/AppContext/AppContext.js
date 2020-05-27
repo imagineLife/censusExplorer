@@ -42,13 +42,27 @@ const AppProvider = ({children}) => {
 		}
 	}, [statsData, fetchedStat])
 
+	console.log('statsList')
+	console.log(statsList)
+	
+	const updateSelectedStat = (str) => {
+		setStatsList(statsList.map(itm => {
+			let newItm = itm
+			newItm.selected = false;
+			if(newItm.string === str){
+				newItm.selected = true
+			}
+			return newItm
+		}))
+	}
 	
 	return(
 		<Provider value={{
 			statsData,
 			statsList,
 			selectedStatKey, 
-			setSelectedStatKey
+			setSelectedStatKey,
+			updateSelectedStat
 		}}>
 			{children}
 		</Provider>
