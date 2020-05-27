@@ -1,6 +1,11 @@
 const { isObject } = require('./../../helpers');
 
 const statsKeysHandler = async (req, res) => {
+	let statsKey = req.params.statsKey
+	let statsKeys = statsKey.split('.')
+	console.log('statsKeys')
+	console.log(statsKeys)
+	
 	try{
 		let firstDataElement = await req.dbCollection.findOne()
 	
@@ -46,7 +51,7 @@ const statsKeysHandler = async (req, res) => {
 						if(!isDoubleNestedObj){
 							resArr.push({
 								string: `${k}.${ovk}.${nestedObjKey}`,
-								selected: k === 'percentBelowPoverty' && ovk === 'gender' && nestedObjKey === 'male' ? true : false
+								selected: k === statsKeys[0] && ovk === statsKeys[1] && nestedObjKey === statsKeys[2] ? true : false
 							})
 							return;
 						}
