@@ -55,7 +55,7 @@ const Dropdown = ({
               setIsOpen(!isOpen);
           }}
         >
-          <p className="eval-form-default">{displayText}</p>
+          <p className="display-text">{displayText}</p>
         </div>
         {isOpen && <ul className="eval-form-input-menu">{children}</ul>}
       </div>
