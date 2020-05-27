@@ -15,8 +15,8 @@ const StatsViewer = () => {
 	const {
 		statsData, 
 		statsList,
-		selectedStatKey, 
-		setSelectedStatKey
+		selectedStatKey,
+		updateSelectedStat
 	} = useContext(AppContext);
 	
 	let svContent = <p>loading stats data...</p>
@@ -34,7 +34,14 @@ const StatsViewer = () => {
 					<sub>Details on a single statistic</sub>
 					<Dropdown {...ddProps} >
 						{statsList.map(({string, selected}, idx) => (
-							<p key={`single-stat-${string}`}>{string}</p>)
+							<p 
+								key={`single-stat-${string}`} 
+								className="stats-itm"
+								onClick={() => {
+									updateSelectedStat(string)
+								}}>
+									{string}
+							</p>)
 						)}
 					</Dropdown>
 				</header>
