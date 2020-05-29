@@ -2,6 +2,7 @@ import React, { useContext } from "react"
 import ReactDOM from "react-dom"
 import './reset.css'
 import './normalize.css'
+import './float-grid.css';
 import "./index.scss";
 
 //State
