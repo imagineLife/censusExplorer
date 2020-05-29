@@ -54,6 +54,7 @@ const AppProvider = ({children}) => {
 			}
 			return newItm
 		}))
+		setSelectedStatKey(str)
 	}
 	
 	return(
