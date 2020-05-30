@@ -1,15 +1,33 @@
 @import 'src/palette';
 
 #app{
-	background-color: $bg-color;
+	background-color: $blue-darkest;
 	min-height: 100vh;
 }
 
 .stats-header{
 	text-align: center;
-	> h2{
-		margin: 5px 0;
+	
+	> #text-wrapper{
+		text-align: left;
+
+		> h2{
+			margin: 5px 0 0 0;
+			font-size: $font-heading-size;
+			line-height: $font-heading-line-height;
+			font-weight: $font-heading-weight;
+		}
+
+		> sub{
+			vertical-align: top;
+			line-height: 1;
+			font-size: 12px;
+			text-transform: uppercase;
+		}
+
 	}
+
+
 }
 
 .stats-itm{
