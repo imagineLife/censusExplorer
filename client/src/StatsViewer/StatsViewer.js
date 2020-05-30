@@ -53,8 +53,30 @@ const StatsViewer = () => {
 
 			{/* Scalar Values */}
 			<section className="dashboard row">
-				<Scalar value={statsData.min} label="Minimum" />
-				<Scalar value={statsData.max} label="Maximum" />
+				<Scalar 
+					// className="bg-red-dark"
+					value={statsData.max} 
+					label="Maximum" />
+				<Scalar 
+					// className="bg-orange-dark"
+					value={statsData.min} 
+					label="Minimum" />
+				<Scalar 
+					// className="bg-yellow-dark"
+					value={statsData.avg.toFixed(2)} 
+					label="Average" />
+				<Scalar 
+					// className="bg-green-dark"
+					value={statsData.median} 
+					label="Median" />
+				<Scalar 
+					// className="bg-blue-dark"
+					value={statsData['standard Deviation']} 
+					label="Standard Deviation" />
+				<Scalar 
+					// className="bg-yellow-dark"
+					value={statsData.variance} 
+					label="Variance" />
 			</section>
 			</Fragment>
 
