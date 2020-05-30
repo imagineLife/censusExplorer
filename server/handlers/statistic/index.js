@@ -28,8 +28,10 @@ const statisticHandler = async (req, res) => {
 					req.dbClient.close()
 					return res.status(422).json({'Error': "Bad State"});
 				}
+
 				req.dbClient.close()
 
+				arr = arr.filter(d => d.x !== 'Puerto Rico')
 				//stats collective vals
 				let max = null, min = null, total = null, itms = null, median = null;
 				arr.forEach(itm => {
@@ -58,13 +60,17 @@ const statisticHandler = async (req, res) => {
 
 				//finding median
 				let sorted = arr.sort((a,b) => parseFloat(b.y) - parseFloat(a.y))
+				let q1 = (sorted[12].y + sorted[12].y) / 2
+				let q3 = (sorted[37].y + sorted[38].y) / 2
 
 				return res.json({
-					avg: total / itms,
+					avg: parseFloat((total / itms).toFixed(2)),
 					data: arr,
 					max,
 					median: parseFloat(ar.median(arr, d => d.y).toFixed(2)),
 					min,
+					q1,
+					q3,
 					stat: defaultStatString, 
 					range: parseFloat((max - min).toFixed(2)),
 					variance: parseFloat(ar.variance(arr, d => d.y).toFixed(2)),
