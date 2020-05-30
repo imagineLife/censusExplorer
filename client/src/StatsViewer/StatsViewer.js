@@ -22,8 +22,6 @@ const StatsViewer = () => {
 	let svContent = <p>loading stats data...</p>
 
 	if(statsData && selectedStatKey && statsList){
-		console.log('statsData')
-		console.log(statsData)
 		
 		const ddProps = {
 			displayText: selectedStatKey,
@@ -33,8 +31,10 @@ const StatsViewer = () => {
 		}
 		svContent = <Fragment>
 				<header className="stats-header row">
-					<h2>Statistics Highlights</h2>
-					<sub>Details on a single statistic</sub>
+					<div id="text-wrapper">
+						<h2>Statistics Highlights</h2>
+						<sub>Details on a single statistic</sub>
+					</div>
 
 					{/* Stats-Chooser */}
 					<Dropdown {...ddProps} >
