@@ -6,16 +6,21 @@ import './float-grid.css';
 import "./index.scss";
 
 //State
-import { AppProvider } from './State/AppContext/AppContext'
+// import { AppProvider } from './State/AppContext/AppContext'
 
 //Components
-import StatsViewer from './StatsViewer'
+import Router from './Router';
+// import StatsViewer from './StatsViewer'
 
 const rootElement = document.getElementById("app")
 
 if(rootElement !== null){
-	ReactDOM.render(
-		<AppProvider>
-			<StatsViewer />
-		</AppProvider>, rootElement);
+	ReactDOM.render(<Router />
+		, rootElement);
 }
+
+/*
+	<AppProvider>
+			<StatsViewer />
+		</AppProvider>
+*/ 
