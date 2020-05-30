@@ -1,3 +1,5 @@
+@import 'src/palette';
+
 * {
   box-sizing: border-box;
 }
@@ -12,10 +14,11 @@
  *
  *   For smaller screens, we always want 20px of padding on either side,
  *   so 960 + 20 + 20 => 1000px
+ *   so 1100 + 20 + 20 => 1140px
  *
  **/
 .row {
-  max-width: 1000px;
+  max-width: 1140px;
   padding-left: 20px;
   padding-right: 20px;
   margin: 0 auto;
@@ -32,22 +35,30 @@
   clear: both;
 }
 
-.col-3, .col-4, .col-6, .col-12 {
+.col-3, .col-4, .col-6, .col-12, .col-6-2{
   float: left;
+  margin: 5px;
 
   /* Gutters:
    * Each column is padded by half-a-gutter on each side,
    *
    * Half a gutter is 10px, 10/960 (context) = 1.041666%
+   * Half a gutter is 10px, 10/1140 (context) = 0.87793%
    *
    */
-  padding-left: 1.04166666%;
-  padding-right: 1.04166666%;
+  padding-left: 0.87793%;
+  padding-right: 0.87793%;
 }
 
 /* Mobile defaults */
 .col-3, .col-4, .col-6, .col-12 {
-  width: 100%;
+  width: calc(100% - #{$widget-gap});
+  padding: $widget-padding;
+}
+
+.col-6-2{
+  width: calc(50% - #{$widget-gap});
+  padding: $widget-padding;
 }
 
 
