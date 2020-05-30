@@ -1,9 +1,9 @@
 @import 'src/palette';
 
 #app{
-	background-color: $blue-darkest;
+	background-color: $body-bg-normal;
 	min-height: 100vh;
-	color: $white-8;
+	color: $body-normal;
 }
 
 .stats-header{
@@ -37,5 +37,5 @@
 	line-height: 2;
 	text-align: left;
 	padding-left: 5px;
-	color: $black-med;
+	color: $body-normal;
 }
