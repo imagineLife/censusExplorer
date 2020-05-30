@@ -63,7 +63,6 @@ const statisticHandler = async (req, res) => {
 					avg: total / itms,
 					data: arr,
 					max,
-					mean: parseFloat(ar.mean(arr, d => d.y).toFixed(2)),
 					median: parseFloat(ar.median(arr, d => d.y).toFixed(2)),
 					min,
 					stat: defaultStatString, 
