@@ -6,6 +6,7 @@ import './statsViewer.scss'
 
 //Components
 import Dropdown from './../Components/Dropdown'
+import Scalar from './../Components/Scalar'
 
 //State
 import { AppContext } from './../State/AppContext/AppContext'
@@ -22,6 +23,9 @@ const StatsViewer = () => {
 	let svContent = <p>loading stats data...</p>
 
 	if(statsData && selectedStatKey && statsList){
+		console.log('statsData')
+		console.log(statsData)
+		
 		const ddProps = {
 			displayText: selectedStatKey,
 			label: "Currently viewing:",
@@ -29,9 +33,11 @@ const StatsViewer = () => {
 		  onClick: () => { console.log('CLICKED DD')}
 		}
 		svContent = <Fragment>
-				<header className="stats-header">
+				<header className="stats-header row">
 					<h2>Statistics Highlights</h2>
 					<sub>Details on a single statistic</sub>
+
+					{/* Stats-Chooser */}
 					<Dropdown {...ddProps} >
 						{statsList.map(({string, selected}, idx) => (
 							<p 
@@ -45,6 +51,11 @@ const StatsViewer = () => {
 						)}
 					</Dropdown>
 				</header>
+
+			{/* Scalar Values */}
+			<section className="dashboard row">
+				<Scalar value={statsData.min} label="Minimum" />
+			</section>
 			</Fragment>
 
 	}
