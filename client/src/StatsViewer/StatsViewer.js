@@ -2,17 +2,16 @@ import React, {
 	useContext,
 	Fragment 
 } from 'react';
-import './statsViewer.scss'
+import './index.scss'
 
 //Components
 import Dropdown from './../Components/Dropdown'
 import Scalar from './../Components/Scalar'
 
 //State
-import { AppContext } from './../State/AppContext/AppContext'
+import { AppContext } from './State/AppContext'
 
 const StatsViewer = () => {
-
 	const {
 		statsData, 
 		statsList,
