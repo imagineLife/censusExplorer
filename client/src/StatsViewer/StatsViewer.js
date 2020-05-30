@@ -57,7 +57,7 @@ const StatsViewer = () => {
 			<section className="dashboard row">
 				{scalars.map((s,idx) => (
 					<Scalar 
-						key={`${s.l}-${idx}`}
+						key={`${s.label}-${idx}`}
 						// {...s}
 						value={statsData[s.value].toFixed(2)}
 						label={s.label}
