@@ -3,6 +3,7 @@
 #app{
 	background-color: $blue-darkest;
 	min-height: 100vh;
+	color: $white-8;
 }
 
 .stats-header{
@@ -10,12 +11,14 @@
 	
 	> #text-wrapper{
 		text-align: left;
+		margin-bottom: 20px;
 
 		> h2{
 			margin: 5px 0 0 0;
 			font-size: $font-heading-size;
 			line-height: $font-heading-line-height;
-			font-weight: $font-heading-weight;
+			/*font-weight: $font-heading-weight;*/
+			/*letter-spacing: .5px;*/
 		}
 
 		> sub{
