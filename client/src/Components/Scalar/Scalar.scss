@@ -6,6 +6,10 @@
 	background-color: $white-2;
 	border-radius: 4px;
 
+	/*> .scalar-label{
+		font-size:20px;
+	}*/
+
 	> .scalar-value{
 		text-align: center;
 		display: block;
@@ -14,7 +18,15 @@
 	}
 }
 
-@media only screen and (min-width : 768px) and (max-width : 1024px) {
+@media only screen and (min-width : 550px){
+	.scalar{
+		> .scalar-value{
+			margin-top: 10%;
+		}
+	}
+}
+
+@media only screen and (min-width : 768px){
 	.scalar{
 		> .scalar-value{
 			margin-top: 8%;
