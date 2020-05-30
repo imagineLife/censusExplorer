@@ -54,6 +54,7 @@ const StatsViewer = () => {
 			{/* Scalar Values */}
 			<section className="dashboard row">
 				<Scalar value={statsData.min} label="Minimum" />
+				<Scalar value={statsData.max} label="Maximum" />
 			</section>
 			</Fragment>
 
