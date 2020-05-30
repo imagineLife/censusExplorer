@@ -44,9 +44,6 @@ $pink: rgb(154,64,130);
 $pink-dim: rgb(105,45,88);
 $pink-dark: rgb(60,32,51);
 
-
-$blue-darkest: rgb(15,31,50);
-
 /* Grayscale / hint-o-blue */
 $white-10: rgb(255,255,255);
 $white-9:  rgb(217,224,234);
@@ -55,7 +52,19 @@ $white-7:  rgba(169,183,201);
 $white-6:  rgb(125,144,168);
 $white-5:  rgb(84,105,131);
 $white-4:  rgb(50,73,100);
+$white-3:  rgb(36,53,74);
+$white-2:  rgb(26,38,54);
+$white-1:  rgb(20,34,54);
+$white-0: rgb(16,28,36);
 
+
+/*  
+	"Palette" colors
+*/
+$body-bg-normal: $white-0;
+/*$body-bg-dark: $white-1;*/
+$body-bg-light: $white-4;
+$body-bg-bright: $white-5;
 
 /* 
 	FONTS 
@@ -68,8 +77,10 @@ $font-heading-line-height: 1.5;
 
 
 
-
-
+/*Body*/
+$body-normal: $white-8;
+$body-dark: $white-3;
+$body-highlight: $white-9;
 
 
 
