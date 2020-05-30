@@ -5,22 +5,12 @@ import './normalize.css'
 import './float-grid.css';
 import "./index.scss";
 
-//State
-// import { AppProvider } from './State/AppContext/AppContext'
-
 //Components
-import Router from './Router';
-// import StatsViewer from './StatsViewer'
+import RouterComponent from './Router';
 
 const rootElement = document.getElementById("app")
 
 if(rootElement !== null){
-	ReactDOM.render(<Router />
+	ReactDOM.render(<RouterComponent />
 		, rootElement);
 }
-
-/*
-	<AppProvider>
-			<StatsViewer />
-		</AppProvider>
-*/ 
