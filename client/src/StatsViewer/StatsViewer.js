@@ -16,12 +16,13 @@ const StatsViewer = () => {
 		statsData, 
 		statsList,
 		selectedStatKey,
-		updateSelectedStat
+		updateSelectedStat,
+		 scalars
 	} = useContext(AppContext);
 	
 	let svContent = <p>loading stats data...</p>
 
-	if(statsData && selectedStatKey && statsList){
+	if(statsData && selectedStatKey && statsList && scalars){
 		
 		const ddProps = {
 			displayText: selectedStatKey,
@@ -29,39 +30,6 @@ const StatsViewer = () => {
 		  className: "stat-picker",
 		  onClick: () => { console.log('CLICKED DD')}
 		}
-
-		let scalars = [
-			{
-				value: statsData.max,
-				label: 'Maximum',
-				className: 'bg-red-dark'
-			},
-			{
-				value: statsData.min,
-				label: 'Minimum',
-				className: 'bg-orange-dark'
-			},
-			{
-				value: statsData.avg.toFixed(2),
-				label: 'Average',
-				className: 'bg-yellow-dark'
-			},
-			{
-				value: statsData.median,
-				label: 'Median',
-				className: 'bg-green-dark'
-			},
-			{
-				value: statsData['standard Deviation'],
-				label: 'Standard Deviation',
-				className: 'bg-purple-dark'
-			},
-			{
-				value: statsData.variance,
-				label: 'Variance',
-				className: 'bg-pink-dark'
-			}
-		]
 
 		svContent = <Fragment>
 				<header className="stats-header row">
@@ -91,7 +59,7 @@ const StatsViewer = () => {
 					<Scalar 
 						key={`${s.l}-${idx}`}
 						// {...s}
-						value={s.value}
+						value={statsData[s.value].toFixed(2)}
 						label={s.label}
 					/>
 				))}
