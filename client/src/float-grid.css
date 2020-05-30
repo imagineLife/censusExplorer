@@ -61,9 +61,8 @@
   padding: $widget-padding;
 }
 
-
-/* Non-mobile, grid */
-@media only screen and (min-width: 640px) {
+/*tablet, "iPad" mini +*/
+@media only screen and (min-width : 768px) and (max-width : 1024px) {
   /* 3 columns, 3/12 in % */
   .col-3 {
     width: 25%;
@@ -77,6 +76,10 @@
   /* 6 columns, 6/12 in % */
   .col-6 {
     width: 50%;
+  }
+
+  .col-6-2{
+    width: calc(33.33% - #{$widget-padding} * 2);
   }
 
   /* 12 columns, 12/12 in % */
