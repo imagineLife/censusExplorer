@@ -29,6 +29,40 @@ const StatsViewer = () => {
 		  className: "stat-picker",
 		  onClick: () => { console.log('CLICKED DD')}
 		}
+
+		let scalars = [
+			{
+				value: statsData.max,
+				label: 'Maximum',
+				className: 'bg-red-dark'
+			},
+			{
+				value: statsData.min,
+				label: 'Minimum',
+				className: 'bg-orange-dark'
+			},
+			{
+				value: statsData.avg.toFixed(2),
+				label: 'Average',
+				className: 'bg-yellow-dark'
+			},
+			{
+				value: statsData.median,
+				label: 'Median',
+				className: 'bg-green-dark'
+			},
+			{
+				value: statsData['standard Deviation'],
+				label: 'Standard Deviation',
+				className: 'bg-purple-dark'
+			},
+			{
+				value: statsData.variance,
+				label: 'Variance',
+				className: 'bg-pink-dark'
+			}
+		]
+
 		svContent = <Fragment>
 				<header className="stats-header row">
 					<div id="text-wrapper">
@@ -53,30 +87,14 @@ const StatsViewer = () => {
 
 			{/* Scalar Values */}
 			<section className="dashboard row">
-				<Scalar 
-					// className="bg-red-dark"
-					value={statsData.max} 
-					label="Maximum" />
-				<Scalar 
-					// className="bg-orange-dark"
-					value={statsData.min} 
-					label="Minimum" />
-				<Scalar 
-					// className="bg-yellow-dark"
-					value={statsData.avg.toFixed(2)} 
-					label="Average" />
-				<Scalar 
-					// className="bg-green-dark"
-					value={statsData.median} 
-					label="Median" />
-				<Scalar 
-					// className="bg-blue-dark"
-					value={statsData['standard Deviation']} 
-					label="Standard Deviation" />
-				<Scalar 
-					// className="bg-yellow-dark"
-					value={statsData.variance} 
-					label="Variance" />
+				{scalars.map((s,idx) => (
+					<Scalar 
+						key={`${s.l}-${idx}`}
+						// {...s}
+						value={s.value}
+						label={s.label}
+					/>
+				))}
 			</section>
 			</Fragment>
 
