@@ -60,12 +60,14 @@ const statisticHandler = async (req, res) => {
 				let sorted = arr.sort((a,b) => parseFloat(b.y) - parseFloat(a.y))
 
 				return res.json({
-					stat: defaultStatString, 
-					data: arr,
-					min,
-					max,
 					avg: total / itms,
+					data: arr,
+					max,
+					mean: parseFloat(ar.mean(arr, d => d.y).toFixed(2)),
 					median: parseFloat(ar.median(arr, d => d.y).toFixed(2)),
+					min,
+					stat: defaultStatString, 
+					range: parseFloat((max - min).toFixed(2)),
 					variance: parseFloat(ar.variance(arr, d => d.y).toFixed(2)),
 					["standard Deviation"]: parseFloat(ar.deviation(arr, d => d.y).toFixed(2))
 				}).end();
