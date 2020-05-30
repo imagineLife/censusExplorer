@@ -18,6 +18,38 @@ const AppProvider = ({children}) => {
 	const [statsUrl] = useState(`${process.env.SERVER_HOST}/statistic`);
 	const [statsKeysUrl] = useState(`${process.env.SERVER_HOST}/statsKeys`);
 
+	const [scalars] = useState([
+			{
+				value: 'max',
+				label: 'Maximum',
+				className: 'bg-red-dark'
+			},
+			{
+				value: 'min',
+				label: 'Minimum',
+				className: 'bg-orange-dark'
+			},
+			{
+				value: 'avg',
+				label: 'Average',
+				className: 'bg-yellow-dark'
+			},
+			{
+				value: 'median',
+				label: 'Median',
+				className: 'bg-green-dark'
+			},
+			{
+				value: 'standard Deviation',
+				label: 'Standard Deviation',
+				className: 'bg-purple-dark'
+			},
+			{
+				value: 'variance',
+				label: 'Variance',
+				className: 'bg-pink-dark'
+			}
+		])
 	//fetch stats keys
 	useEffect(() => {
 		if(!statsList && !fetchedStatsList){
@@ -60,7 +92,8 @@ const AppProvider = ({children}) => {
 			statsList,
 			selectedStatKey, 
 			setSelectedStatKey,
-			updateSelectedStat
+			updateSelectedStat,
+			scalars
 		}}>
 			{children}
 		</Provider>
