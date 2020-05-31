@@ -1,5 +1,5 @@
 import React from 'react';
-
+import useDimensions from './../../Hooks/UseDimensions'
 const Boxplot = ({
 	min,
 	max,
@@ -9,12 +9,16 @@ const Boxplot = ({
 	orientation,
 	axis,
 	height,
+	w,
 	col
 }) => {
+	const [ref, {width}] = useDimensions();
+	
 	return(
 		<figure 
-			className="boxplot widget"
-			style={{height}}>
+			className={`boxplot widget ${col}`}
+			style={{w, height}}
+			ref={ref}>
 				Boxplot
 		</figure>
 	)
