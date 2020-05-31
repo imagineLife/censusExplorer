@@ -79,6 +79,7 @@ const StatsViewer = () => {
 					axis
 					height="300px"
 					col="col-6"
+					w="100%"
 				/>
 				<figure />
 			</section>
