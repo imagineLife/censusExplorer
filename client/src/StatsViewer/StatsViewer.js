@@ -7,6 +7,8 @@ import './index.scss'
 //Components
 import Dropdown from './../Components/Dropdown'
 import Scalar from './../Components/Scalar'
+// import Chart from './../Components/Chart'
+import Boxplot from './../Components/Boxplot'
 
 //State
 import { AppContext } from './State/AppContext'
@@ -63,6 +65,22 @@ const StatsViewer = () => {
 						label={s.label}
 					/>
 				))}
+			</section>
+
+			{/* Scalar Values */}
+			<section className="dashboard row">
+				<Boxplot 
+					min={statsData.min}
+					max={statsData.max}
+					median={statsData.median}
+					q1={statsData.q1}
+					q3={statsData.q3}
+					orientation="horizontal"
+					axis
+					height="300px"
+					col="col-6"
+				/>
+				<figure />
 			</section>
 			</Fragment>
 
