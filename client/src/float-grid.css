@@ -90,6 +90,6 @@
 
 @media only screen and (min-width: 1000px){
   .col-6-2{
-    width: calc(16.66% - #{$widget-padding} * 2);
+    width: calc(16.66% - 10px);
   }
 }
