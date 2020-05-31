@@ -2,7 +2,7 @@ import React from 'react';
 import './Scalar.scss'
 
 const Scalar = ({label, value, className}) => {
-	let thisClass = "scalar col-6-2"
+	let thisClass = "widget scalar col-6-2"
 	
 	if(className){
 		thisClass = `${thisClass} ${className}`
