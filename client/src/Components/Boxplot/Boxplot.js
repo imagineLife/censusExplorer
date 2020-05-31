@@ -8,18 +8,50 @@ const Boxplot = ({
 	q3,
 	orientation,
 	axis,
-	height,
-	w,
+	h,
 	col
 }) => {
-	const [ref, {width}] = useDimensions();
-	
+
+	//get dims, configured from props
+	const [ref, {width, height}] = useDimensions();
+	const inheritedPadding = 8;
+
+	let twoPads;
+	let wLP;
+	let hLP;
+
+	if(width && height){
+		//'SQUISH' the svg to fit inside dims LESS PADDING
+		twoPads = inheritedPadding * 2
+		wLP = width - twoPads
+		hLP = height - twoPads
+	}
+
+	let svgProps = {}
+	if(width && height){
+		svgProps = {
+			className:"chart-svg",
+			width: width,
+			height: height,
+			transform: `translate(-${inheritedPadding}, -${inheritedPadding})`
+		}
+	}
 	return(
 		<figure 
 			className={`boxplot widget ${col}`}
-			style={{w, height}}
+			style={{height: h}}
 			ref={ref}>
-				Boxplot
+				{/* wait till useDimension finishes */}
+				{width && height && 
+					<svg {...svgProps}>
+						<text 
+							className="svg-title"
+							transform={`translate(${inheritedPadding},${inheritedPadding})`}
+							alignmentBaseline="hanging">
+							Boxplot
+						</text>
+					</svg>
+				}
 		</figure>
 	)
 };
