@@ -77,9 +77,8 @@ const StatsViewer = () => {
 					q3={statsData.q3}
 					orientation="horizontal"
 					axis
-					height="300px"
 					col="col-6"
-					w="100%"
+					h="300px"
 				/>
 				<figure />
 			</section>
