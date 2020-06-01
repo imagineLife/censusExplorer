@@ -48,6 +48,15 @@ const Boxplot = ({
 	}
 
 	/*
+		Figure Props
+	*/ 
+	const figProps = {
+		className:`boxplot widget ${col}`,
+		style: {height: h},
+		ref
+	}
+
+	/*
 		Scales
 	*/	
 	let xScale = () => {}
@@ -67,10 +76,7 @@ const Boxplot = ({
 	}
 
 	return(
-		<figure 
-			className={`boxplot widget ${col}`}
-			style={{height: h}}
-			ref={ref}>
+		<figure {...figProps}>
 				{/* wait till useDimension finishes */}
 				{width && height && 
 					<svg {...svgProps}>
