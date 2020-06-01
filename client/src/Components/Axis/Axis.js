@@ -8,7 +8,7 @@ import { select as d3Select } from 'd3-selection'
 import './Axis.css'
 import { wrap } from './../../helpers'
 
-const Axis = (props) => {
+const Axis = ({orient, scale, translate, width}) => {
   
   const axisElement = useRef()
 
@@ -16,27 +16,27 @@ const Axis = (props) => {
   useEffect(() => {
   	if(axisElement && axisElement.current){
   		let axisRef = axisElement.current
-  		const axisType = `axis${props.orient}`
+  		const axisType = `axis${orient}`
 	  
 	    const axis = d3Axis[axisType]()
-	      .scale(props.scale)
-	      // .tickSize(-props.tickSize)
+	      .scale(scale)
+	      // .tickSize(-tickSize)
 	      // .tickPadding([12])
 	      // .ticks(5)
 
 	    d3Select(axisRef).call(axis)
-	    if(props.orient == 'bottom'){
+	    if(orient == 'bottom'){
 	      d3Select(axisRef).selectAll(".tick text")
-	      .call(wrap, props.scale.bandwidth())
+	      .call(wrap, scale.bandwidth())
 	    }
   	}
-  },[axisElement])
+  },[axisElement, width])
 
   return (
     <g
-      className={`Axis Axis-${props.orient}`}
+      className={`Axis Axis-${orient}`}
       ref={axisElement}
-      transform={props.translate}
+      transform={translate}
     />
   )
 }
