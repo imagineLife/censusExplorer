@@ -6,7 +6,7 @@ import React, {
 import * as d3Axis from 'd3-axis'
 import { select as d3Select } from 'd3-selection'
 import './Axis.css'
-import { wrap } from '../../helpers'
+import { wrap } from './../../helpers'
 
 const Axis = (props) => {
   
@@ -36,7 +36,7 @@ const Axis = (props) => {
     <g
       className={`Axis Axis-${props.orient}`}
       ref={axisElement}
-      // transform={props.translate}
+      transform={props.translate}
     />
   )
 }
