@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
+import{ scaleLinear } from 'd3-scale'
+
+// Components
+import Axis from './../Axis'
 const Boxplot = ({
 	min,
 	max,
@@ -11,22 +15,28 @@ const Boxplot = ({
 	h,
 	col
 }) => {
-
+	
 	//get dims, configured from props
 	const [ref, {width, height}] = useDimensions();
 	const inheritedPadding = 8;
 
+
+	/*
+		SVG Dimensions
+	*/
 	let twoPads;
 	let wLP;
 	let hLP;
 
 	if(width && height){
-		//'SQUISH' the svg to fit inside dims LESS PADDING
 		twoPads = inheritedPadding * 2
 		wLP = width - twoPads
 		hLP = height - twoPads
 	}
 
+	/*
+		SVG Props
+	*/
 	let svgProps = {}
 	if(width && height){
 		svgProps = {
@@ -36,6 +46,26 @@ const Boxplot = ({
 			transform: `translate(-${inheritedPadding}, -${inheritedPadding})`
 		}
 	}
+
+	/*
+		Scales
+	*/	
+	let xScale = () => {}
+	let yScale = () => {}
+	if(width && height){
+		xScale = scaleLinear().domain([min,max]).range([inheritedPadding, wLP])
+		yScale = scaleLinear().domain([0, 100]).range([hLP, inheritedPadding])
+	}
+
+	/* axis */
+	let thisAxis = null
+	if(orientation && orientation === 'horizontal'){
+		thisAxis = <Axis 
+			orient={"Bottom"}
+			scale={xScale}
+		/>
+	}
+
 	return(
 		<figure 
 			className={`boxplot widget ${col}`}
@@ -45,11 +75,12 @@ const Boxplot = ({
 				{width && height && 
 					<svg {...svgProps}>
 						<text 
-							className="svg-title"
+							className="plain-text"
 							transform={`translate(${inheritedPadding},${inheritedPadding})`}
 							alignmentBaseline="hanging">
 							Boxplot
 						</text>
+						{axis && thisAxis}
 					</svg>
 				}
 		</figure>
