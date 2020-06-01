@@ -17,9 +17,6 @@ const Axis = (props) => {
   	if(axisElement && axisElement.current){
   		let axisRef = axisElement.current
   		const axisType = `axis${props.orient}`
-	    console.log('axisType')
-	    console.log(axisType)
-	    
 	  
 	    const axis = d3Axis[axisType]()
 	      .scale(props.scale)
