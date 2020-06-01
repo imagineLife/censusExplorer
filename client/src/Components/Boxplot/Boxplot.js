@@ -20,6 +20,8 @@ const Boxplot = ({
 	const [ref, {width, height}] = useDimensions();
 	const inheritedPadding = 8;
 	const chartPadding = 16;
+	const whiteStroke = '#a9b7c9'
+	const boxFill = 'rgb(38,49,20)'
 
 
 	/*
@@ -86,9 +88,13 @@ const Boxplot = ({
 			orient={"Bottom"}
 			scale={xScale}
 			translate={`translate(0,${height - (chartPadding * 2 )})`}
+			width={width}
 		/>
 	}
 
+	/*
+		Min-to-max line props
+	*/
 	let minToMaxLineProps = {}
 	if(xScale && yScale){
 		
@@ -98,8 +104,31 @@ const Boxplot = ({
 			y1: (height - chartPadding) / 2,
 			y2: (height - chartPadding) / 2,
 			className: 'plain-text',
-			stroke: '#a9b7c9'
+			stroke: whiteStroke
 		}	
+	}
+
+	/*
+		Box Props
+	*/ 
+	let boxProps = {}
+	if(xScale && yScale){
+
+		//scaled qs
+		let scaledQ3 = xScale(q3)
+		let scaledQ1 = xScale(q1)
+		let scaledW = scaledQ3 - scaledQ1
+		
+		let centerHeight = height / 2
+		let boxHeight = (height - chartPadding) / 4
+		boxProps = {
+			height: boxHeight,
+			stroke: whiteStroke,
+			fill: boxFill,
+			width: scaledW,
+			x: scaledQ1,
+			y: centerHeight - (boxHeight / 2) - (chartPadding / 2)
+		}
 	}
 
 	return(
@@ -118,6 +147,9 @@ const Boxplot = ({
 
 							{/* min-to-max line */}
 							{<line {...minToMaxLineProps}></line>}
+
+						{/* box */}
+							{<rect {...boxProps}></rect>}
 						</g>
 					</svg>
 				}
