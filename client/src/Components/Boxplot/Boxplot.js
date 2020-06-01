@@ -19,19 +19,23 @@ const Boxplot = ({
 	//get dims, configured from props
 	const [ref, {width, height}] = useDimensions();
 	const inheritedPadding = 8;
+	const chartPadding = 16;
 
 
 	/*
-		SVG Dimensions
+		SVG && Chart 'inner' Dimensions
 	*/
 	let twoPads;
-	let wLP;
-	let hLP;
+	let wLP, hLP;
+	let chartWidth, chartHeight;
 
 	if(width && height){
 		twoPads = inheritedPadding * 2
+		let chartDoublePad = chartPadding * 2;
 		wLP = width - twoPads
 		hLP = height - twoPads
+		chartWidth = width - chartDoublePad;
+		chartHeight = height - chartDoublePad;
 	}
 
 	/*
@@ -62,16 +66,20 @@ const Boxplot = ({
 	let xScale = () => {}
 	let yScale = () => {}
 	if(width && height){
-		xScale = scaleLinear().domain([min,max]).range([inheritedPadding, wLP])
-		yScale = scaleLinear().domain([0, 100]).range([hLP, inheritedPadding])
+		//scales DO NOT account for transf/trans of elements
+		xScale = scaleLinear().domain([min,max]).range([0, chartWidth ])
+		yScale = scaleLinear().domain([0, 100]).range([chartHeight, chartPadding])
 	}
 
-	/* axis */
+	/* 
+		axis 
+	*/
 	let thisAxis = null
 	if(orientation && orientation === 'horizontal'){
 		thisAxis = <Axis 
 			orient={"Bottom"}
 			scale={xScale}
+			translate={`translate(${chartPadding},${height - (chartPadding * 2 )})`}
 		/>
 	}
 
