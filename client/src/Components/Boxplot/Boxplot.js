@@ -30,12 +30,18 @@ const Boxplot = ({
 	let chartWidth, chartHeight;
 
 	if(width && height){
+		//padding
 		twoPads = inheritedPadding * 2
 		let chartDoublePad = chartPadding * 2;
+		
+		//svg dims without padding
 		wLP = width - twoPads
 		hLP = height - twoPads
+		
+		//chart dims with MORE padding
 		chartWidth = width - chartDoublePad;
 		chartHeight = height - chartDoublePad;
+
 	}
 
 	/*
@@ -63,11 +69,11 @@ const Boxplot = ({
 	/*
 		Scales
 	*/	
-	let xScale = () => {}
-	let yScale = () => {}
+	let xScale = null
+	let yScale = null
 	if(width && height){
 		//scales DO NOT account for transf/trans of elements
-		xScale = scaleLinear().domain([min,max]).range([0, chartWidth ])
+		xScale = scaleLinear().domain([min,max]).range([chartPadding, chartWidth ])
 		yScale = scaleLinear().domain([0, 100]).range([chartHeight, chartPadding])
 	}
 
@@ -79,8 +85,21 @@ const Boxplot = ({
 		thisAxis = <Axis 
 			orient={"Bottom"}
 			scale={xScale}
-			translate={`translate(${chartPadding},${height - (chartPadding * 2 )})`}
+			translate={`translate(0,${height - (chartPadding * 2 )})`}
 		/>
+	}
+
+	let minToMaxLineProps = {}
+	if(xScale && yScale){
+		
+		minToMaxLineProps = {
+			x1: xScale(min),
+			x2: xScale(max),
+			y1: (height - chartPadding) / 2,
+			y2: (height - chartPadding) / 2,
+			className: 'plain-text',
+			stroke: '#a9b7c9'
+		}	
 	}
 
 	return(
@@ -88,13 +107,18 @@ const Boxplot = ({
 				{/* wait till useDimension finishes */}
 				{width && height && 
 					<svg {...svgProps}>
-						<text 
-							className="plain-text"
-							transform={`translate(${inheritedPadding},${inheritedPadding})`}
-							alignmentBaseline="hanging">
-							Boxplot
-						</text>
-						{axis && thisAxis}
+						<g transform={`translate(${inheritedPadding},${inheritedPadding})`}>
+							<text 
+								className="plain-text"
+								alignmentBaseline="hanging">
+								Boxplot
+							</text>
+
+							{axis && thisAxis}
+
+							{/* min-to-max line */}
+							{<line {...minToMaxLineProps}></line>}
+						</g>
 					</svg>
 				}
 		</figure>
