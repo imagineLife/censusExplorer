@@ -9,6 +9,8 @@ import Dropdown from './../Components/Dropdown'
 import Scalar from './../Components/Scalar'
 // import Chart from './../Components/Chart'
 import Boxplot from './../Components/Boxplot'
+import BarChart from './../Components/BarChart'
+
 
 //State
 import { AppContext } from './State/AppContext'
@@ -32,7 +34,7 @@ const StatsViewer = () => {
 		  className: "stat-picker",
 		  onClick: () => { console.log('CLICKED DD')}
 		}
-
+		
 		svContent = <Fragment>
 				<header className="stats-header row">
 					<div id="text-wrapper">
@@ -76,6 +78,12 @@ const StatsViewer = () => {
 					q1={statsData.q1}
 					q3={statsData.q3}
 					orientation="horizontal"
+					axis
+					col="col-6"
+					h="300px"
+				/>
+				<BarChart
+					data={statsData.data} 
 					axis
 					col="col-6"
 					h="300px"
