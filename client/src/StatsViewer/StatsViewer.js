@@ -10,7 +10,7 @@ import Scalar from './../Components/Scalar'
 // import Chart from './../Components/Chart'
 import Boxplot from './../Components/Boxplot'
 import BarChart from './../Components/BarChart'
-
+import ChartBox from './../Components/ChartBox'
 
 //State
 import { AppContext } from './State/AppContext'
@@ -82,12 +82,24 @@ const StatsViewer = () => {
 					col="col-6"
 					h="300px"
 				/>
-				<BarChart
-					data={statsData.data} 
+				<BarChart 
+					min={statsData.min}
+					max={statsData.max}
+					median={statsData.median}
+					q1={statsData.q1}
+					q3={statsData.q3}
+					orientation="horizontal"
 					axis
 					col="col-6"
 					h="300px"
 				/>
+
+				{/*
+					<ChartBox 
+						col="col-6"
+						h="300px"
+					/>
+				*/}
 				<figure />
 			</section>
 			</Fragment>
@@ -98,3 +110,12 @@ const StatsViewer = () => {
 };
 
 export default StatsViewer;
+
+/*
+	<BarChart
+					data={statsData.data} 
+					axis
+					col="col-6"
+					h="300px"
+				/>
+*/ 
