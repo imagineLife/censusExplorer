@@ -111,6 +111,7 @@ const Boxplot = ({
 	/*
 		Box Props
 	*/ 
+	let boxHeight = (height - chartPadding) / 4
 	let boxProps = {}
 	if(xScale && yScale){
 
@@ -120,7 +121,6 @@ const Boxplot = ({
 		let scaledW = scaledQ3 - scaledQ1
 		
 		let centerHeight = height / 2
-		let boxHeight = (height - chartPadding) / 4
 		boxProps = {
 			height: boxHeight,
 			stroke: whiteStroke,
@@ -129,6 +129,29 @@ const Boxplot = ({
 			x: scaledQ1,
 			y: centerHeight - (boxHeight / 2) - (chartPadding / 2)
 		}
+	}
+
+	/*
+			Min / Median / Max lines
+	*/ 
+	let threeLines = null;
+	if(width && height){
+		threeLines = [min,median, max].map((itm, idx) => {
+			let scaledX = xScale(itm)
+			let centerY = height / 2
+			let lineTop = centerY - (boxHeight / 2) - (chartPadding / 2)
+			let lineBottom = centerY + (boxHeight / 2) - (chartPadding / 2)
+
+			return (
+				<line
+					key={`${idx}-minmaxline`}
+					x1={scaledX}
+					x2={scaledX}
+					y1={lineTop}
+					y2={lineBottom}
+					stroke={whiteStroke}
+				/>)
+		})
 	}
 
 	return(
@@ -148,8 +171,11 @@ const Boxplot = ({
 							{/* min-to-max line */}
 							{<line {...minToMaxLineProps}></line>}
 
-						{/* box */}
+							{/* box */}
 							{<rect {...boxProps}></rect>}
+
+						{/*min/median/max lines*/}
+						{threeLines}
 						</g>
 					</svg>
 				}
