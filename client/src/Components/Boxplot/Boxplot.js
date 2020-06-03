@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
 import{ scaleLinear } from 'd3-scale'
+import './Boxplot.scss';
 
 // Components
 import Axis from './../Axis'
@@ -124,10 +125,11 @@ const Boxplot = ({
 		boxProps = {
 			height: boxHeight,
 			stroke: whiteStroke,
-			fill: boxFill,
+			// fill: boxFill,
 			width: scaledW,
 			x: scaledQ1,
-			y: centerHeight - (boxHeight / 2) - (chartPadding / 2)
+			y: centerHeight - (boxHeight / 2) - (chartPadding / 2),
+			className: 'boxplot-box'
 		}
 	}
 
