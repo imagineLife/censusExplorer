@@ -86,6 +86,7 @@ const StatsViewer = () => {
 					data={statsData.binnedCounts}
 					orientation="vertical"
 					axis
+					ticks={4}
 					col="col-6"
 					h="300px"
 				/>
