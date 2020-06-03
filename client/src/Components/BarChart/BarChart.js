@@ -5,17 +5,18 @@ import { scaleBand, scaleLinear } from 'd3-scale'
 // Components
 import Axis from './../Axis'
 const BarChart = ({
-	data,
-	orientation,
 	axis,
+	col,
+	data,
 	h,
-	col
+	orientation,
+	ticks
 }) => {
 	
 	//get dims, configured from props
 	const [ref, {width, height}] = useDimensions();
 	const inheritedPadding = 8;
-	const chartPadding = 16;
+	const chartPadding = 20;
 	const whiteStroke = '#a9b7c9'
 	const boxFill = 'rgb(38,49,20)'
 
@@ -77,19 +78,27 @@ const BarChart = ({
 		.range([chartPadding, chartWidth])
 		.paddingInner(.05)
 		.paddingOuter(.01)
-		yScale = scaleLinear().domain([0, 100]).range([chartHeight, chartPadding])
+		yScale = scaleLinear().domain(data.map(d => d.y)).range([chartHeight, chartPadding])
 	}
 
 	/* 
 		axis 
 	*/
-	let thisAxis = null
+	let xAxis = null, yAxis = null;
 	if(orientation && orientation === 'vertical'){
-		thisAxis = <Axis 
+		xAxis = <Axis 
 			orient={"Bottom"}
 			scale={xScale}
 			translate={`translate(0,${height - (chartPadding * 2 )})`}
 			width={width}
+		/>
+
+		yAxis = <Axis 
+			orient={"Left"}
+			scale={yScale}
+			translate={`translate(${chartPadding},0)`}
+			ticks={ticks}
+			// width={width}
 		/>
 	}
 
@@ -105,7 +114,8 @@ const BarChart = ({
 								Binned Ranges
 							</text>
 
-							{axis && thisAxis}
+							{axis && xAxis}
+							{axis && yAxis}
 
 						</g>
 					</svg>
