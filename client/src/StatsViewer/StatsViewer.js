@@ -83,12 +83,8 @@ const StatsViewer = () => {
 					h="300px"
 				/>
 				<BarChart 
-					min={statsData.min}
-					max={statsData.max}
-					median={statsData.median}
-					q1={statsData.q1}
-					q3={statsData.q3}
-					orientation="horizontal"
+					data={statsData.binnedCounts}
+					orientation="vertical"
 					axis
 					col="col-6"
 					h="300px"
