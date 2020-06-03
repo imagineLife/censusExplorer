@@ -8,7 +8,7 @@ import { select as d3Select } from 'd3-selection'
 import './Axis.css'
 import { wrap } from './../../helpers'
 
-const Axis = ({orient, scale, translate, width}) => {
+const Axis = ({orient, scale, translate, width, ticks}) => {
   
   const axisElement = useRef()
 
@@ -23,6 +23,11 @@ const Axis = ({orient, scale, translate, width}) => {
 	      // .tickSize(-tickSize)
 	      // .tickPadding([12])
 	      // .ticks(5)
+
+      if(ticks){
+        console.log('TICKS!');
+        axis.ticks(ticks)
+      }
 
 	    d3Select(axisRef).call(axis)
 	    if(orient == 'bottom'){
