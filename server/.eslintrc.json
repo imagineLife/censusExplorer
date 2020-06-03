@@ -1,6 +1,5 @@
 {
     "env": {
-        "node": true,
         "browser": true,
         "commonjs": true,
         "es6": true
@@ -14,6 +13,5 @@
         "ecmaVersion": 11
     },
     "rules": {
-        "no-process-env": 0
     }
 }

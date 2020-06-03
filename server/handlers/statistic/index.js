@@ -73,6 +73,40 @@ const statisticHandler = async (req, res) => {
 				let q3 = (sorted[12].y + sorted[13].y) / 2
 				median = parseFloat(ar.median(arr, d => d.y).toFixed(2))
 
+				let binnedByPercentage = {
+					q1: {
+						x: `${min}-${q1}`,
+						y: 0
+					},
+					q2: {
+						x: `${q1}-${median}`,
+						y: 0
+					},
+					q3: {
+						x: `${median}-${q3}`,
+						y: 0
+					},
+					q4: {
+						x: `${q3}-${max}`,
+						y: 0
+					}
+				}
+				//set bin counts
+				arr.forEach((itm, idx) => {
+					if(itm.y <= q1){
+						binnedByPercentage.q1.y = binnedByPercentage.q1.y + 1;
+					}
+					if(itm.y > q1 && itm.y <= median){
+						binnedByPercentage.q2.y = binnedByPercentage.q2.y + 1;
+					}
+					if(itm.y > median && itm.y <= q3){
+						binnedByPercentage.q3.y = binnedByPercentage.q3.y + 1;
+					}
+					if(itm.y > q3){
+						binnedByPercentage.q4.y = binnedByPercentage.q4.y + 1;
+					}
+				})
+
 				return res.json({
 					avg: parseFloat((total / itms).toFixed(2)),
 					data: arr,
@@ -84,7 +118,25 @@ const statisticHandler = async (req, res) => {
 					stat: defaultStatString, 
 					range,
 					variance: parseFloat(ar.variance(arr, d => d.y).toFixed(2)),
-					["standard Deviation"]: parseFloat(ar.deviation(arr, d => d.y).toFixed(2))
+					["standard Deviation"]: parseFloat(ar.deviation(arr, d => d.y).toFixed(2)),
+					binnedCounts: [
+						{
+							x: binnedByPercentage.q1.x,
+							y: binnedByPercentage.q1.y
+						},
+						{
+							x: binnedByPercentage.q2.x,
+							y: binnedByPercentage.q2.y
+						},
+						{
+							x: binnedByPercentage.q3.x,
+							y: binnedByPercentage.q3.y
+						},
+						{
+							x: binnedByPercentage.q4.x,
+							y: binnedByPercentage.q4.y
+						}
+					]
 				}).end();
 			})
 	}catch(e){
