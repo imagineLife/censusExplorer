@@ -34,7 +34,12 @@ const statisticHandler = async (req, res) => {
 				arr = arr.filter(d => d.x !== 'Puerto Rico')
 				//stats collective vals
 				let max = null, min = null, total = null, itms = null, median = null;
+
 				arr.forEach(itm => {
+
+					/*
+						update min && max
+					*/
 					let yVal = parseFloat(itm.y)
 					itms ++;
 
@@ -58,21 +63,26 @@ const statisticHandler = async (req, res) => {
 					}
 				})
 
+				//Range
+				let range = parseFloat((max - min).toFixed(2));
+
 				//finding median
 				let sorted = arr.sort((a,b) => parseFloat(b.y) - parseFloat(a.y))
-				let q1 = (sorted[12].y + sorted[12].y) / 2
-				let q3 = (sorted[37].y + sorted[38].y) / 2
+
+				let q1 = (sorted[37].y + sorted[38].y) / 2
+				let q3 = (sorted[12].y + sorted[13].y) / 2
+				median = parseFloat(ar.median(arr, d => d.y).toFixed(2))
 
 				return res.json({
 					avg: parseFloat((total / itms).toFixed(2)),
 					data: arr,
 					max,
-					median: parseFloat(ar.median(arr, d => d.y).toFixed(2)),
+					median,
 					min,
 					q1,
 					q3,
 					stat: defaultStatString, 
-					range: parseFloat((max - min).toFixed(2)),
+					range,
 					variance: parseFloat(ar.variance(arr, d => d.y).toFixed(2)),
 					["standard Deviation"]: parseFloat(ar.deviation(arr, d => d.y).toFixed(2))
 				}).end();
