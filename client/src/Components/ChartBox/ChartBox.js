@@ -56,8 +56,6 @@ const ChartBox = ({
 		style: {height: h},
 		ref
 	}
-	console.log('figProps')
-	console.log(figProps)
 	
 
 	return(
