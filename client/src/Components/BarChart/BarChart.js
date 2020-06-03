@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
-import{ scaleLinear } from 'd3-scale'
+import { scaleBand, scaleLinear } from 'd3-scale'
 
 // Components
 import Axis from './../Axis'
 const BarChart = ({
-	min,
-	max,
-	median,
-	q1,
-	q3,
+	data,
 	orientation,
 	axis,
 	h,
@@ -75,7 +71,12 @@ const BarChart = ({
 	let yScale = null
 	if(width && height){
 		//scales DO NOT account for transf/trans of elements
-		xScale = scaleLinear().domain([min,max]).range([chartPadding, chartWidth ])
+		//D3 Scales
+	xScale = scaleBand()
+		.domain(data.map(d => d.x))
+		.range([chartPadding, chartWidth])
+		.paddingInner(.05)
+		.paddingOuter(.01)
 		yScale = scaleLinear().domain([0, 100]).range([chartHeight, chartPadding])
 	}
 
@@ -83,7 +84,7 @@ const BarChart = ({
 		axis 
 	*/
 	let thisAxis = null
-	if(orientation && orientation === 'horizontal'){
+	if(orientation && orientation === 'vertical'){
 		thisAxis = <Axis 
 			orient={"Bottom"}
 			scale={xScale}
@@ -101,7 +102,7 @@ const BarChart = ({
 							<text 
 								className="plain-text"
 								alignmentBaseline="hanging">
-								Binned Quartiles
+								Binned Ranges
 							</text>
 
 							{axis && thisAxis}
