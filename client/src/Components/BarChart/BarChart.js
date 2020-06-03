@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
 import { scaleBand, scaleLinear } from 'd3-scale'
+import './BarChart.scss';
 
 // Components
 import Axis from './../Axis'
@@ -10,7 +11,8 @@ const BarChart = ({
 	data,
 	h,
 	orientation,
-	ticks
+	ticks,
+	yDomain
 }) => {
 	
 	//get dims, configured from props
@@ -75,10 +77,12 @@ const BarChart = ({
 		//D3 Scales
 	xScale = scaleBand()
 		.domain(data.map(d => d.x))
-		.range([chartPadding, chartWidth])
-		.paddingInner(.05)
-		.paddingOuter(.01)
-		yScale = scaleLinear().domain(data.map(d => d.y)).range([chartHeight, chartPadding])
+		.range([chartPadding * 1.1, chartWidth])
+		.paddingInner(0)
+		.paddingOuter(.1)
+		yScale = scaleLinear()
+			.domain(yDomain)
+			.range([chartHeight, chartPadding])
 	}
 
 	/* 
@@ -102,6 +106,24 @@ const BarChart = ({
 		/>
 	}
 
+
+	/*
+		Rectangles
+	*/ 
+	let rects = null;
+	if(xScale && yScale && hLP){
+		rects = data.map((d,idx) => (
+			<rect 
+				key={`rect-${d.x}-${idx}`}
+				width={xScale.bandwidth()}
+				className={`bar-rectangle ${d.x}`}
+				x={xScale(d.x)}
+				y={yScale(d.y)}
+				height={hLP - (chartPadding * 1.15) - yScale(d.y)}
+			/>
+		))
+	}
+
 	return(
 		<figure {...figProps}>
 				{/* wait till useDimension finishes */}
@@ -114,9 +136,11 @@ const BarChart = ({
 								Binned Ranges
 							</text>
 
-							{axis && xAxis}
 							{axis && yAxis}
 
+							{rects && rects}
+
+							{axis && xAxis}
 						</g>
 					</svg>
 				}
