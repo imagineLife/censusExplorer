@@ -35,7 +35,7 @@ function useDimensions(){
             
             resizeID = setTimeout(() => {
               setDimensions(getDimensionObject(node))
-            }, 150)
+            }, 25)
           }
           
           measure();
