@@ -53,11 +53,13 @@
 /* Mobile defaults */
 .col-3, .col-4, .col-6, .col-12 {
   width: calc(100% - #{$widget-gap});
+  /*width: 100%;*/
   padding: $widget-padding;
 }
 
 .col-6-2{
   width: calc(50% - #{$widget-gap});
+  /*width: 50%;*/
   padding: $widget-padding;
 }
 
@@ -75,11 +77,11 @@
 
   /* 6 columns, 6/12 in % */
   .col-6 {
-    width: calc(50% - #{$widget-padding} * 2);
+    width: calc(50% - #{$widget-gap});
   }
 
   .col-6-2{
-    width: calc(33.33% - #{$widget-padding} * 2);
+    width: calc(33.33% - #{$widget-gap});
   }
 
   /* 12 columns, 12/12 in % */
