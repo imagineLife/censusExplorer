@@ -91,13 +91,6 @@ const StatsViewer = () => {
 					col="col-6"
 					h="300px"
 				/>
-
-				{/*
-					<ChartBox 
-						col="col-6"
-						h="300px"
-					/>
-				*/}
 				<figure />
 			</section>
 			</Fragment>
@@ -107,13 +100,4 @@ const StatsViewer = () => {
 	return <section id="app-wrapper">{svContent}</section>;
 };
 
-export default StatsViewer;
-
-/*
-	<BarChart
-					data={statsData.data} 
-					axis
-					col="col-6"
-					h="300px"
-				/>
-*/ 
+export default StatsViewer; 
