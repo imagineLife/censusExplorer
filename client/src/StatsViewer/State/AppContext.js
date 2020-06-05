@@ -65,14 +65,15 @@ const AppProvider = ({children}) => {
 	//fetch single-stat
 	useEffect(() => {
 		if(!statsData && !fetchedStat){
+			console.log('Fetching single-stat');
 			const fetchStats = async () => {
-				let statsRes = await fetcher(statsUrl)
+				let statsRes = await fetcher(`${statsUrl}/${selectedStatKey}`)
 				setStatsData(statsRes)
 			}
 			fetchStats();
 			setFetchedStat(true)
 		}
-	}, [statsData, fetchedStat])
+	}, [statsList, selectedStatKey])
 	
 	const updateSelectedStat = (str) => {
 		setStatsList(statsList.map(itm => {
@@ -84,6 +85,8 @@ const AppProvider = ({children}) => {
 			return newItm
 		}))
 		setSelectedStatKey(str)
+		setStatsData(null)
+		setFetchedStat(false)
 	}
 	
 	return(
