@@ -95,6 +95,7 @@ const StatsViewer = () => {
 					col="col-6"
 					h="300px"
 				/>
+				{/*
 				<Map 
 					data={statsData.data}
 					mapFile={stateFile}
@@ -102,6 +103,7 @@ const StatsViewer = () => {
 					col="col-12"
 					h="300px"
 				/>
+				*/}
 
 				<figure />
 			</section>
