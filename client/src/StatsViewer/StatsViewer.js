@@ -9,8 +9,12 @@ import Dropdown from './../Components/Dropdown'
 import Scalar from './../Components/Scalar'
 // import Chart from './../Components/Chart'
 import Boxplot from './../Components/Boxplot'
+import Violin from './../Components/Violin'
 import BarChart from './../Components/BarChart'
 import ChartBox from './../Components/ChartBox'
+import Map from './../Components/Map'
+
+import stateFile from './../statesLess.geojson'
 
 //State
 import { AppContext } from './State/AppContext'
@@ -91,6 +95,14 @@ const StatsViewer = () => {
 					col="col-6"
 					h="300px"
 				/>
+				<Map 
+					data={statsData.data}
+					mapFile={stateFile}
+					dataMapKey={'x'}
+					col="col-12"
+					h="300px"
+				/>
+
 				<figure />
 			</section>
 			</Fragment>
@@ -101,3 +113,18 @@ const StatsViewer = () => {
 };
 
 export default StatsViewer; 
+
+/*
+	<Violin 
+		data={statsData.data}
+		min={statsData.min}
+		max={statsData.max}
+		median={statsData.median}
+		q1={statsData.q1}
+		q3={statsData.q3}
+		orientation="horizontal"
+		axis
+		col="col-6"
+		h="300px"
+	/>
+*/
