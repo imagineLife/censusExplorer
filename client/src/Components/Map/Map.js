@@ -23,6 +23,7 @@ const Map = ({
 	const whiteStroke = '#a9b7c9'
 	const boxFill = 'rgb(38,49,20)'
 
+	//  RE-Enable to display the map!
 	useEffect(() => {
 		if(!paths && data){
 			const thesePaths = mapFile.features.map((feat,fIdx) => {
@@ -41,7 +42,7 @@ const Map = ({
 			})
 			setPaths(thesePaths)
 		}
-	}, [width])
+	}, []) //[width]
 
 	/*
 		SVG && Chart 'inner' Dimensions
