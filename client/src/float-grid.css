@@ -86,7 +86,7 @@
 
   /* 12 columns, 12/12 in % */
   .col-12 {
-    width: 100%;
+    width: calc(100% - #{$widget-gap});
   }
 }
 
