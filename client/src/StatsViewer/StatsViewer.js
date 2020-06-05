@@ -11,6 +11,7 @@ import Scalar from './../Components/Scalar'
 import Boxplot from './../Components/Boxplot'
 import Violin from './../Components/Violin'
 import BarChart from './../Components/BarChart'
+import Lollipop from './../Components/Lollipop'
 import ChartBox from './../Components/ChartBox'
 import Map from './../Components/Map'
 
@@ -90,9 +91,17 @@ const StatsViewer = () => {
 					data={statsData.binnedCounts}
 					orientation="vertical"
 					axis
-					yDomain={[0,24]}
+					yDomain={[0,25]}
 					ticks={4}
 					col="col-6"
+					h="300px"
+				/>
+				<Lollipop 
+					data={statsData.data}
+					orientation="vertical"
+					axis
+					yDomain={[0,25]}
+					col="col-12"
 					h="300px"
 				/>
 				{/*
