@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
+import { stateAbbr } from './../../helpers'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import './Lollipop.scss';
 
@@ -71,12 +72,13 @@ const Lollipop = ({
 		Scales
 	*/	
 	let xScale = null
-	let yScale = null
+	let yScale = null;
+	
 	if(width && height){
 		//scales DO NOT account for transf/trans of elements
 		//D3 Scales
 	xScale = scaleBand()
-		.domain(data.map(d => d.x))
+		.domain(data.map(d => stateAbbr(d.x)))
 		.range([chartPadding * 1.1, chartWidth])
 		.paddingInner(0)
 		.paddingOuter(.1)
@@ -117,14 +119,15 @@ const Lollipop = ({
 			<line
 				// width={xScale.bandwidth()}
 				className={`bar-rectangle ${d.x}`}
-				x1={xScale(d.x)}
-				x2={xScale(d.x)}
+				x1={xScale(stateAbbr(d.x)) + (xScale.bandwidth() / 2)}
+				x2={xScale(stateAbbr(d.x)) + (xScale.bandwidth() / 2)}
 				y1={yScale(d.y)}
 				y2={hLP - (chartPadding * 1.15)}
 				stroke={"white"}
+				strokeDasharray={'10 5'}
 			/>
 			<circle 
-				cx={xScale(d.x)}
+				cx={xScale(stateAbbr(d.x)) + (xScale.bandwidth() / 2)}
 				cy={yScale(d.y)}
 				r={5}
 				className="pop-circle"
