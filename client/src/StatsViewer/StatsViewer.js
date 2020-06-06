@@ -32,6 +32,12 @@ const StatsViewer = () => {
 	let svContent = <p>loading stats data...</p>
 
 	if(statsData && selectedStatKey && statsList && scalars){
+		console.log('scalars')
+		console.log(scalars)
+		console.log('statsData')
+		console.log(statsData)
+		
+		
 		
 		const ddProps = {
 			displayText: selectedStatKey,
@@ -68,7 +74,7 @@ const StatsViewer = () => {
 					<Scalar 
 						key={`${s.label}-${idx}`}
 						// {...s}
-						value={statsData[s.value].toFixed(2)}
+						value={statsData[s.value] && statsData[s.value].toFixed(2) || 'n/a'}
 						label={s.label}
 					/>
 				))}
