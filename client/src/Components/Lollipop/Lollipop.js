@@ -3,7 +3,7 @@ import useDimensions from './../../Hooks/UseDimensions'
 import { stateAbbr } from './../../helpers'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import './Lollipop.scss';
-
+import * as arr from 'd3-array';
 // Components
 import Axis from './../Axis'
 const Lollipop = ({
@@ -12,8 +12,7 @@ const Lollipop = ({
 	data,
 	h,
 	orientation,
-	ticks,
-	yDomain
+	ticks
 }) => {
 	
 	//get dims, configured from props
@@ -77,13 +76,16 @@ const Lollipop = ({
 	if(width && height){
 		//scales DO NOT account for transf/trans of elements
 		//D3 Scales
+		let yExtent = arr.extent(data, d => d.y)
+		let maxY = yExtent[1] * 1.25
+		
 	xScale = scaleBand()
 		.domain(data.map(d => stateAbbr(d.x)))
 		.range([chartPadding * 1.1, chartWidth])
 		.paddingInner(0)
 		.paddingOuter(.1)
 		yScale = scaleLinear()
-			.domain(yDomain)
+			.domain([0,maxY])
 			.range([chartHeight, chartPadding])
 	}
 
