@@ -106,7 +106,6 @@ const StatsViewer = () => {
 					data={statsData.data}
 					orientation="vertical"
 					axis
-					yDomain={[0,25]}
 					col="col-12"
 					h="300px"
 				/>
