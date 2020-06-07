@@ -6,7 +6,11 @@ const statisticHandler = async (req, res) => {
 		//prepare dbrequest
 		let dbRequest = req.dbCollection
 
-		let defaultStatString = 'percentBelowPoverty.gender.male'
+		let statString = 'percentBelowPoverty.gender.male'
+		if(req.params.statsKey){
+			statString = req.params.statsKey
+		}
+		
 		await dbRequest
 			.aggregate([
 			{
@@ -15,7 +19,7 @@ const statisticHandler = async (req, res) => {
 					"x": "$state", 
 
 					//default to percent-below-poverty men @ each state
-					"y": `$${defaultStatString}`,
+					"y": `$${statString}`,
 				}
 			}
 			])
@@ -41,6 +45,7 @@ const statisticHandler = async (req, res) => {
 						update min && max
 					*/
 					let yVal = parseFloat(itm.y)
+					
 					itms ++;
 
 					//first iteration
@@ -106,7 +111,7 @@ const statisticHandler = async (req, res) => {
 						binnedByPercentage.q4.y = binnedByPercentage.q4.y + 1;
 					}
 				})
-
+				
 				return res.json({
 					avg: parseFloat((total / itms).toFixed(2)),
 					data: arr,
@@ -115,7 +120,7 @@ const statisticHandler = async (req, res) => {
 					min,
 					q1,
 					q3,
-					stat: defaultStatString, 
+					stat: statString, 
 					range,
 					variance: parseFloat(ar.variance(arr, d => d.y).toFixed(2)),
 					["standard Deviation"]: parseFloat(ar.deviation(arr, d => d.y).toFixed(2)),
