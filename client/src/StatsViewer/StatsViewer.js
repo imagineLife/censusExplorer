@@ -12,6 +12,7 @@ import Boxplot from './../Components/Boxplot'
 import Violin from './../Components/Violin'
 import BarChart from './../Components/BarChart'
 import Lollipop from './../Components/Lollipop'
+import Scatterplot from './../Components/Scatterplot'
 import ChartBox from './../Components/ChartBox'
 import Map from './../Components/Map'
 
@@ -31,13 +32,7 @@ const StatsViewer = () => {
 	
 	let svContent = <p>loading stats data...</p>
 
-	if(statsData && selectedStatKey && statsList && scalars){
-		console.log('scalars')
-		console.log(scalars)
-		console.log('statsData')
-		console.log(statsData)
-		
-		
+	if(statsData && selectedStatKey && statsList && scalars){		
 		
 		const ddProps = {
 			displayText: selectedStatKey,
@@ -105,6 +100,13 @@ const StatsViewer = () => {
 				<Lollipop 
 					data={statsData.data}
 					orientation="vertical"
+					axis
+					col="col-12"
+					h="300px"
+				/>
+				<Scatterplot 
+					data={statsData.data}
+					xStat={selectedStatKey}
 					axis
 					col="col-12"
 					h="300px"
