@@ -3,7 +3,7 @@ import useDimensions from './../../Hooks/UseDimensions'
 import { fetcher } from './../../helpers'
 
 const Scatterplot = ({data, axis, col, h, xStat}) => {
-	const [singleStatURL] = useState(`${process.env.SERVER_HOST}/statistic/single`);
+	const [scatterURL] = useState(`${process.env.SERVER_HOST}/scatterplot`);
 	const [yAxisKey, setYAxisKey] = useState('percentBelowPoverty.gender.female');
 	const [yAxisVals, setYAxisVals] = useState(null)
 	const [fetchedScatterData, setFetchedScatterData] = useState(false)
@@ -11,18 +11,19 @@ const Scatterplot = ({data, axis, col, h, xStat}) => {
 	useEffect(() => {
 		if(!yAxisVals &&!fetchedScatterData){
 			const fetchScatterplotData = async () => {
-				let scatterData = await fetcher(`${singleStatURL}`, {
+				
+				let reqBody = JSON.stringify({
+					x: xStat,
+					y: yAxisKey
+				})
+				
+				let scatterData = await fetcher(`${scatterURL}`, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({
-						statistic: yAxisKey
-					})
+					body: reqBody
 				})
-				
-				console.log('scatterData')
-				console.log(scatterData)
 				
 				setYAxisVals([1,2,3])
 			}
