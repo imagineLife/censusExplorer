@@ -1,6 +1,7 @@
 const express = require("express");
 const { startMongo } = require('./connectToDB')
 const { setEnvVars }  = require('./setEnvVars')
+const bodyParser = require('body-parser')
 const { 
 	tableHandler, 
 	shapeHandler,
@@ -15,7 +16,7 @@ async function appInit(){
 		// setup express 
 		const app = express();
 		app.use(express.static("public"));
-
+		
 		
 		//allow req from localhost in development
 		if (process.env.NODE_ENV === 'development') {
@@ -33,6 +34,8 @@ async function appInit(){
 		    next();
 		  });
 		}
+
+		app.use(bodyParser.json());
 		//route-handling
 		app.get('/shape', startMongo, shapeHandler)
 		app.get('/table', startMongo, tableHandler)
@@ -40,7 +43,7 @@ async function appInit(){
 		app.get('/statsKeys', startMongo, statsKeysHandler)
 		app.get('/statsKeys/:statsKey', startMongo, statsKeysHandler)
 		app.get('/statistic', startMongo, statisticHandler)
-		app.get('/statistic/single', startMongo, singleStatHandler)
+		app.post('/statistic/single', startMongo, singleStatHandler)
 		app.get('/statistic/:statsKey', startMongo, statisticHandler)
 		// app.get('/statistic/:type', startMongo, statisticHandler)
 
