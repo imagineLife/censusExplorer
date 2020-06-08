@@ -7,19 +7,23 @@ const Scatterplot = ({data, axis, col, h, xStat}) => {
 	const [yAxisKey, setYAxisKey] = useState('percentBelowPoverty.gender.female');
 	const [yAxisVals, setYAxisVals] = useState(null)
 	const [fetchedScatterData, setFetchedScatterData] = useState(false)
-
+	
 	useEffect(() => {
 		if(!yAxisVals &&!fetchedScatterData){
 			const fetchScatterplotData = async () => {
 				let scatterData = await fetcher(`${singleStatURL}`, {
 					method: 'POST',
-					header: {
+					headers: {
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-
+						statistic: yAxisKey
 					})
 				})
+				
+				console.log('scatterData')
+				console.log(scatterData)
+				
 				setYAxisVals([1,2,3])
 			}
 			fetchScatterplotData()
