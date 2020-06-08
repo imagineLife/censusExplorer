@@ -36,9 +36,6 @@ const scatterHandler = async (req, res) => {
 				req.dbClient.close()
 
 				arr = arr.filter(d => d.x !== 'Puerto Rico')
-				console.log('arr')
-				console.log(arr)
-				
 				
 				return res.status(200).json(arr);
 			})
