@@ -1,5 +1,3 @@
-const ar = require('d3-array')
-
 const scatterHandler = async (req, res) => {
 	try{
 
