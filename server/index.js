@@ -7,7 +7,8 @@ const {
 	shapeHandler,
 	statisticHandler,
 	singleStatHandler,
-	statsKeysHandler
+	statsKeysHandler,
+	scatterHandler
 } = require('./handlers')
 async function appInit(){
 	try{
@@ -42,9 +43,10 @@ async function appInit(){
 		app.get('/table/:state', startMongo, tableHandler)
 		app.get('/statsKeys', startMongo, statsKeysHandler)
 		app.get('/statsKeys/:statsKey', startMongo, statsKeysHandler)
-		app.get('/statistic', startMongo, statisticHandler)
 		app.post('/statistic/single', startMongo, singleStatHandler)
 		app.get('/statistic/:statsKey', startMongo, statisticHandler)
+		app.get('/statistic', startMongo, statisticHandler)
+		app.post('/scatterplot',startMongo, scatterHandler)
 		// app.get('/statistic/:type', startMongo, statisticHandler)
 
 		app.listen(process.env.PORT, () => {
