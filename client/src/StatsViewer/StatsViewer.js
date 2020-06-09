@@ -105,7 +105,6 @@ const StatsViewer = () => {
 					h="300px"
 				/>
 				<Scatterplot 
-					data={statsData.data}
 					xStat={selectedStatKey}
 					axis
 					col="col-12"
