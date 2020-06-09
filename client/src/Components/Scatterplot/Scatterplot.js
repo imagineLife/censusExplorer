@@ -12,7 +12,7 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 	const [yAxisKey, setYAxisKey] = useState('percentBelowPoverty.gender.female');
 	const [scatterData, setScatterData] = useState(null)
 	const [fetchedScatterData, setFetchedScatterData] = useState(false)
-	const [domainPadding] = useState(.05) //5% domain padding
+	const [domainPadding] = useState(.05) //1% domain padding
 	const [r] = useState(5); //circle radius
 	useEffect(() => {
 		if(!scatterData &&!fetchedScatterData){
@@ -107,7 +107,7 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 		const { data, xDomain, yDomain } = scatterData;
 
 		//'padded' domain ranges
-		let paddedXDomain = [xDomain[0] * domainPadding, (xDomain[1] * domainPadding) + xDomain[1]]
+		let paddedXDomain = [xDomain[0] * (1 - domainPadding), (xDomain[1] * domainPadding) + xDomain[1]]
 		let paddedYDomain = [0, (yDomain[1] * domainPadding) + yDomain[1]]
 		// yDomain[0] * domainPadding
 
