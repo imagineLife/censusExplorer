@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
 import { fetcher } from './../../helpers'
+import { scaleBand, scaleLinear } from 'd3-scale'
+import './Scatterplot.scss';
 
-const Scatterplot = ({data, axis, col, h, xStat}) => {
+// Components
+import Axis from './../Axis'
+
+const Scatterplot = ({axis, col, h, xStat}) => {
 	const [scatterURL] = useState(`${process.env.SERVER_HOST}/scatterplot`);
 	const [yAxisKey, setYAxisKey] = useState('percentBelowPoverty.gender.female');
-	const [yAxisVals, setYAxisVals] = useState(null)
+	const [scatterData, setScatterData] = useState(null)
 	const [fetchedScatterData, setFetchedScatterData] = useState(false)
-	
+	const [domainPadding] = useState(.05) //5% domain padding
+	const [r] = useState(5); //circle radius
 	useEffect(() => {
-		if(!yAxisVals &&!fetchedScatterData){
+		if(!scatterData &&!fetchedScatterData){
 			const fetchScatterplotData = async () => {
 				
 				let reqBody = JSON.stringify({
@@ -17,7 +23,7 @@ const Scatterplot = ({data, axis, col, h, xStat}) => {
 					y: yAxisKey
 				})
 				
-				let scatterData = await fetcher(`${scatterURL}`, {
+				let res = await fetcher(scatterURL, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
@@ -25,12 +31,17 @@ const Scatterplot = ({data, axis, col, h, xStat}) => {
 					body: reqBody
 				})
 				
-				setYAxisVals([1,2,3])
+				if(res.Error){
+					console.log('Scatter data error');
+					console.log(res.Error);
+				}else{
+					setScatterData(res)
+				}
 			}
 			fetchScatterplotData()
 			setFetchedScatterData(true)
 		}
-	},[yAxisVals])
+	},[scatterData])
 
 	//get dims, configured from props
 	const [ref, {width, height}] = useDimensions();
@@ -63,6 +74,15 @@ const Scatterplot = ({data, axis, col, h, xStat}) => {
 	}
 
 	/*
+		Figure Props
+	*/ 
+	const figProps = {
+		className:`boxplot widget ${col}`,
+		style: {height: h},
+		ref
+	}
+
+	/*
 		SVG Props
 	*/
 	let svgProps = {}
@@ -75,21 +95,74 @@ const Scatterplot = ({data, axis, col, h, xStat}) => {
 		}
 	}
 
-	/*
-		Figure Props
-	*/ 
-	const figProps = {
-		className:`boxplot widget ${col}`,
-		style: {height: h},
-		ref
-	}
+	let 
+		xScale = null, 
+		xAxis = null, 
+		yScale = null, 
+		yAxis = null;
 
+	if(scatterData){
+
+		//destructure scatter data
+		const { data, xDomain, yDomain } = scatterData;
+
+		//'padded' domain ranges
+		let paddedXDomain = [xDomain[0] * domainPadding, (xDomain[1] * domainPadding) + xDomain[1]]
+		let paddedYDomain = [0, (yDomain[1] * domainPadding) + yDomain[1]]
+		// yDomain[0] * domainPadding
+
+		/*
+			xScale && axis
+		*/
+		xScale = scaleLinear()
+			.domain(paddedXDomain)
+			.range([chartPadding, chartWidth])
+
+		xAxis = <Axis 
+				orient={"Bottom"}
+				scale={xScale}
+				translate={`translate(0,${height - (chartPadding * 2 )})`}
+				width={width}
+			/>
+
+		/*
+			yScale && axis
+		*/
+		yScale = scaleLinear()
+			.domain(paddedYDomain)
+			.range([chartHeight, chartPadding])
+
+		yAxis = <Axis 
+			orient={"Left"}
+			scale={yScale}
+			translate={`translate(${chartPadding},0)`}
+			// ticks={ticks}
+			/>
+	}
 	return (
 		<figure {...figProps}>
 				{/* wait till useDimension finishes */}
 				{width && height && 
 					<svg {...svgProps}>
 						<g transform={`translate(${inheritedPadding},${inheritedPadding})`}>
+							{xAxis}
+							{yAxis}
+							{scatterData && scatterData.data && 
+								scatterData.data.map((d, idx) => {
+									const scaledX = xScale(d.x)
+									const scaledY = yScale(d.y)
+									return <circle
+										key={`scatter-circle-${idx}`}
+										cx={scaledX}
+										cy={scaledY}
+										r={r}
+										onClick={() => {
+											console.log({state: d.state, x: d.x, y: d.y})
+										}}
+										className='scatter-circle'
+									/>
+								})
+							}
 						</g>
 					</svg>
 				}
