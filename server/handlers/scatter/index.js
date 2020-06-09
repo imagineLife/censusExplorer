@@ -36,8 +36,22 @@ const scatterHandler = async (req, res) => {
 				req.dbClient.close()
 
 				arr = arr.filter(d => d.x !== 'Puerto Rico')
+				let minX = null, 
+				minY = null, 
+				maxX = null, 
+				maxY = null;
+				arr.forEach(el => {
+					if(el.x < minX || !minX) minX = el.x;
+					if(el.x > maxX || !maxX) maxX = el.x;
+					if(el.y < minY || !minY) minY = el.y;
+					if(el.y > maxY || !maxY) maxY = el.y;
+				})
 				
-				return res.status(200).json(arr);
+				return res.status(200).json({
+					data: arr,
+					xDomain: [minX, maxX],
+					yDomain: [minY, maxY]
+				});
 			})
 	}catch(e){
 		console.log('e')
