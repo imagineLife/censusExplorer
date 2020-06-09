@@ -65,7 +65,6 @@ const AppProvider = ({children}) => {
 	//fetch single-stat
 	useEffect(() => {
 		if(!statsData && !fetchedStat){
-			console.log('Fetching single-stat');
 			const fetchStats = async () => {
 				let statsRes = await fetcher(`${statsUrl}/${selectedStatKey}`)
 				setStatsData(statsRes)
