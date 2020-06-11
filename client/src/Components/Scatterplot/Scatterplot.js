@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
 import { fetcher } from './../../helpers'
 import { scaleBand, scaleLinear } from 'd3-scale'
@@ -6,14 +6,23 @@ import './Scatterplot.scss';
 
 // Components
 import Axis from './../Axis'
+import ChartBox from './../ChartBox'
+import Dropdown from './../Dropdown'
+
+//State
+import { AppContext } from './../../StatsViewer/State/AppContext'
 
 const Scatterplot = ({axis, col, h, xStat}) => {
+
+	const {statsList} = useContext(AppContext);
+	
 	const [scatterURL] = useState(`${process.env.SERVER_HOST}/scatterplot`);
 	const [yAxisKey, setYAxisKey] = useState('percentBelowPoverty.gender.female');
 	const [scatterData, setScatterData] = useState(null)
 	const [fetchedScatterData, setFetchedScatterData] = useState(false)
 	const [domainPadding] = useState(.05) //1% domain padding
 	const [r] = useState(5); //circle radius
+
 	useEffect(() => {
 		if(!scatterData &&!fetchedScatterData){
 			const fetchScatterplotData = async () => {
@@ -145,6 +154,11 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 				{width && height && 
 					<svg {...svgProps}>
 						<g transform={`translate(${inheritedPadding},${inheritedPadding})`}>
+							<text 
+								className="plain-text"
+								alignmentBaseline="hanging">
+									Scatterplot
+							</text>
 							{xAxis}
 							{yAxis}
 							{scatterData && scatterData.data && 
@@ -165,6 +179,24 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 							}
 						</g>
 					</svg>
+				}
+				{statsList && 
+					<Dropdown 
+						label="y-Axis" 
+						className="scatter-dropdown"
+						displayText={yAxisKey}
+					>
+						{statsList.map(({string, selected}, idx) => (
+							<p 
+								key={`dd-stat-${string}`} 
+								className="scatter-dd"
+								onClick={() => {
+									setYAxisKey(string)
+								}}>
+									{string}
+							</p>)
+						)}
+					</Dropdown>
 				}
 		</figure>
 	)
