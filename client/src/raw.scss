@@ -64,13 +64,14 @@ $white-3:  rgb(36,53,74);
 $white-2:  rgb(26,38,54);
 $white-1:  rgb(20,34,54);
 $white-0: rgb(16,28,36);
+$white-050: rgb(8,14,18);
 
 
 /*  
 	"Palette" colors
 */
 $body-bg-normal: $white-0;
-/*$body-bg-dark: $white-1;*/
+$body-bg-dark: $white-050;
 $body-bg-light: $white-4;
 $body-bg-bright: $white-5;
 
