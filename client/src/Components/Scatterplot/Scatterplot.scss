@@ -1,4 +1,5 @@
 @import 'src/raw';
+@import 'src/palette';
 
 .boxplot.widget{
 	position: relative;
@@ -26,6 +27,11 @@
 
 	  & .dd-wrapper{
 	  	display: inline-block;
+
+	  	& .dd-menu{
+	  		width: auto;
+	  		right: 0px;
+	  	}
 	  }
 
 	  & .display-text{
@@ -36,6 +42,11 @@
 	  	font-size: 12px;
 	  	line-height: 2;
 	  	padding: 0 5px;
+	  	background-color: $body-bg-normal;
+
+	  	&:hover{
+	  		background-color: $body-bg-dark;
+	  	};
 	  }
 	}
 }
