@@ -4,6 +4,7 @@ import React, {
 } from 'react';
 import './index.scss'
 
+import RTT from 'react-tooltip';
 //Components
 import Dropdown from './../Components/Dropdown'
 import Scalar from './../Components/Scalar'
@@ -14,7 +15,7 @@ import BarChart from './../Components/BarChart'
 import Lollipop from './../Components/Lollipop'
 import Scatterplot from './../Components/Scatterplot'
 import ChartBox from './../Components/ChartBox'
-import Map from './../Components/Map'
+import MapBox from './../Components/Map'
 
 import stateFile from './../statesLess.geojson'
 
@@ -111,7 +112,7 @@ const StatsViewer = () => {
 					h="300px"
 				/>
 				{/*
-				<Map 
+				<MapBox 
 					data={statsData.data}
 					mapFile={stateFile}
 					dataMapKey={'x'}
@@ -126,7 +127,10 @@ const StatsViewer = () => {
 
 	}
 
-	return <section id="app-wrapper">{svContent}</section>;
+	return <Fragment>
+		<section id="app-wrapper">{svContent}</section>
+		<RTT />
+	</Fragment>;
 };
 
 export default StatsViewer; 
