@@ -43,9 +43,11 @@
 	  	line-height: 2;
 	  	padding: 0 5px;
 	  	background-color: $body-bg-normal;
+	  	transition: all 250ms;
 
 	  	&:hover{
 	  		background-color: $body-bg-dark;
+	  		color: white;
 	  	};
 	  }
 	}
