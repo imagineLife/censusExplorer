@@ -14,7 +14,6 @@ const Dropdown = ({
   
   useEffect(() => {
     const handleDocumentClick = e => {
-    	console.log('handleDocumentClick');
       if (
         dropdownRef.current
       ) {
