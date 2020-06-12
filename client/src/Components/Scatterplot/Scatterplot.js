@@ -192,6 +192,8 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 								className="scatter-dd"
 								onClick={() => {
 									setYAxisKey(string)
+									setFetchedScatterData(false)
+									setScatterData(null)
 								}}>
 									{string}
 							</p>)
