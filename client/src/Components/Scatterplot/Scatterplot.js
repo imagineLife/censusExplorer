@@ -173,6 +173,12 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 										onClick={() => {
 											console.log({state: d.state, x: d.x, y: d.y})
 										}}
+										onMouseOver={() => {
+											console.log('d')
+											console.log(d)
+										}}
+										onMouseOut={() => {
+										}}
 										className='scatter-circle'
 									/>
 								})
