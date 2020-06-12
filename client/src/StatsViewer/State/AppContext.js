@@ -10,6 +10,17 @@ const AppContext = createContext();
 const { Provider } = AppContext;
 
 const AppProvider = ({children}) => {
+	const [emptyScatterHover] = useState({
+		state: null,
+		x: {
+			string: null,
+			value: null
+		},
+		y: {
+			string: null,
+			value: null
+		}
+	})
 	const [selectedStatKey, setSelectedStatKey] = useState('percentBelowPoverty.gender.male');
 	const [statsList, setStatsList] = useState(null)	//list of statistics && selected-state
 	const [statsData, setStatsData] = useState(null)	//single-stat data
@@ -17,7 +28,7 @@ const AppProvider = ({children}) => {
 	const [fetchedStat, setFetchedStat] = useState(false)
 	const [statsUrl] = useState(`${process.env.SERVER_HOST}/statistic`);
 	const [statsKeysUrl] = useState(`${process.env.SERVER_HOST}/statsKeys`);
-
+	const [hoveredStats, setHoverStats] = useState(emptyScatterHover)
 	const [scalars] = useState([
 			{
 				value: 'max',
@@ -90,9 +101,11 @@ const AppProvider = ({children}) => {
 	
 	return(
 		<Provider value={{
+			hoveredStats,
 			statsData,
 			statsList,
 			selectedStatKey, 
+			setHoverStats,
 			setSelectedStatKey,
 			updateSelectedStat,
 			scalars
