@@ -26,6 +26,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-tooltip": "^4.2.6",
+    "sanitize-html": "^1.26.0",
     "style-loader": "^1.2.1",
     "topojson-client": "^3.1.0",
     "webpack": "^4.43.0",
