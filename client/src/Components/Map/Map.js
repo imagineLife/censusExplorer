@@ -16,6 +16,9 @@ const MapBox = ({
 	mapFile
 }) => {
 	
+	const [divSize] = useState({w: 975, h: 610})
+	const [centerX] = useState(divSize.w / 2)
+	const [centerY] = useState(divSize.h / 2)
 	//get dims, configured from props
 	const [ref, {width, height}] = useDimensions();
 	const [fetchedData, setFetchedData] = useState(false)
@@ -71,6 +74,9 @@ const MapBox = ({
 		ref: ref
 	}
 
+	//d3-needed selected-state
+	let selectedState = null;
+
 		//mock data fetch
 	useEffect(() => {
 		if(!fetchedData){
@@ -93,12 +99,39 @@ const MapBox = ({
 			const d3Path = dg
 				.geoPath()
 			
+			const clickedState = async d => {
+		  	const gSelection = d3Select.select(gRef.current)
+		  	var x, y, k;
+		    const didNotClickCurrentState = selectedState !== d
+		    if (d && didNotClickCurrentState) {
+		      var centroid = d3Path.centroid(d);
+		      
+		      x = centroid[0];
+		      y = centroid[1];
+		      k = 6;
+		      selectedState = d;
+		    } else {
+		      x = divSize.w / 2;
+		      y = divSize.h / 2;
+		      k = 1;
+		      selectedState = null;
+		    }
+
+		    //set class, pick-up orange color
+		    gSelection.selectAll("path")
+		      .classed("active", selectedState ? d => d === selectedState : false);
+
+		    gSelection.transition()
+		        .duration(550)
+		        .attr("transform", `translate(${ centerX },${centerY}) scale(${k}) translate(${-x},${-y})`)
+		  }
+
 			const enterStates = e => {
 		    e.append("path")
 		    .attr("d", d3Path)
 		    .style('vector-effect', 'non-scaling-stroke')
 		    .attr('class', 'boundary')
-		  	// .on('click', clickedState)
+		  	.on('click', clickedState)
 		  }
 
 		  const updateStates = u => {
