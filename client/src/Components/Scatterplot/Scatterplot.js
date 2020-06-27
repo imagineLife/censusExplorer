@@ -9,6 +9,8 @@ import Axis from './../Axis'
 import ChartBox from './../ChartBox'
 import Dropdown from './../Dropdown'
 
+import ReactTooltip from 'react-tooltip';
+
 //State
 import { AppContext } from './../../StatsViewer/State/AppContext'
 
@@ -148,6 +150,11 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 			// ticks={ticks}
 			/>
 	}
+
+	useEffect(() => {
+		console.log('rebuilding tooltip');
+    ReactTooltip.rebuild();
+  });
 	return (
 		<figure {...figProps}>
 				{/* wait till useDimension finishes */}
@@ -170,16 +177,10 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 										cx={scaledX}
 										cy={scaledY}
 										r={r}
-										onClick={() => {
-											console.log({state: d.state, x: d.x, y: d.y})
-										}}
-										onMouseOver={() => {
-											console.log('d')
-											console.log(d)
-										}}
-										onMouseOut={() => {
-										}}
 										className='scatter-circle'
+										data-tip={`<div class="custom-tip"><p>${d.state}</p><p> x:${d.x} y:${d.y}</p></div>`}
+										data-html={true}
+										html="true"
 									/>
 								})
 							}
@@ -206,6 +207,7 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 						)}
 					</Dropdown>
 				}
+				<ReactTooltip />
 		</figure>
 	)
 };
