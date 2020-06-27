@@ -29,7 +29,9 @@
   transition: all 250ms;
 
   &:hover{
-    fill: $white-4;
+    /*fill: $white-4;*/
+    stroke-width: 2px;
+    stroke-dasharray: none;
   };
 
   &:active{
