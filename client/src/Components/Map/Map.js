@@ -127,7 +127,7 @@ const MapBox = ({
 		      
 		      x = centroid[0];
 		      y = centroid[1];
-		      k = 6;
+		      k = 5;
 		      selectedState = d;
 		    } else {
 		      x = divSize.w / 2;
