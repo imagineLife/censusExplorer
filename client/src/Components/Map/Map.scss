@@ -4,10 +4,11 @@
 	font-size: 14px;
 }
 .boundary {
-  /*fill: rgb(0,60,0);*/
+  cursor: pointer;
+  
 
   /* 
-    Solid option 
+    Solid-border option 
   */
   
   /*
@@ -16,12 +17,22 @@
   */
   
   /*
-      Dashed-option?!
+      Dashed-border-option
   */
   stroke: rgb(105,105,105);
   stroke-width: .5px; 
   stroke-dasharray: 3 2 3 3;
 
   vector-effect: non-scaling-stroke;
-  transition: fill 150ms;
+  transition: all 250ms;
+
+  &:hover{
+    opacity: .5;
+    stroke-dasharray: unset;
+  };
+
+  &:active{
+    opacity: .2;
+    stroke: none;
+  };
 }
