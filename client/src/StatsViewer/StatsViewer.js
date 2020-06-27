@@ -117,8 +117,6 @@ const StatsViewer = () => {
 					col="col-12"
 					h="600px"
 				/>
-
-				<figure />
 			</section>
 			</Fragment>
 
