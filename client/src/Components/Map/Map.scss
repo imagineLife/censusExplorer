@@ -1,3 +1,5 @@
+@import 'src/palette';
+
 .map-title{
 	display: inline;
 	position: absolute;
@@ -27,8 +29,7 @@
   transition: all 250ms;
 
   &:hover{
-    opacity: .5;
-    stroke-dasharray: unset;
+    fill: $white-4;
   };
 
   &:active{
