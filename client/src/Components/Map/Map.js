@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef , Fragment} from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import * as dg from 'd3-geo'
-import { feature } from "topojson-client"
+import * as d3Select from 'd3-selection'
+import * as d3Z from 'd3-zoom'
+import * as topo from "topojson-client"
 import './Map.scss';
 
 // Components
 
-const Map = ({
+const MapBox = ({
 	col,
 	data,
 	h,
@@ -16,33 +18,13 @@ const Map = ({
 	
 	//get dims, configured from props
 	const [ref, {width, height}] = useDimensions();
-	// const [updatedFeats] = useState(feature(mapFile, mapFile).features)
-	const [paths, setPaths] = useState(null)
+	const [fetchedData, setFetchedData] = useState(false)
+	const [stateData, setStateData] = useState(null)
 	const inheritedPadding = 8;
 	const chartPadding = 20;
 	const whiteStroke = '#a9b7c9'
 	const boxFill = 'rgb(38,49,20)'
-
-	//  RE-Enable to display the map!
-	useEffect(() => {
-		if(!paths && data){
-			const thesePaths = mapFile.features.map((feat,fIdx) => {
-				const calcd = dg.geoPath().projection(dg
-					.geoAlbersUsa()
-					.translate([width / 2 ,height / 2])
-					.scale([500]))(feat)
-				return <path
-					key={`feature-${fIdx}`} 
-					d={calcd} 
-					style={{
-					stroke: 'gray',
-					stokeWidth: 1,
-					fill: 'none'
-				}} />
-			})
-			setPaths(thesePaths)
-		}
-	}, []) //[width]
+	const gRef = useRef()
 
 	/*
 		SVG && Chart 'inner' Dimensions
@@ -72,6 +54,8 @@ const Map = ({
 	// let svgProps = {}
 	// if(width && height){
 		let svgProps = {
+			viewBox:"0 0 975 610",
+			id: 'map-svg',
 			className:"chart-svg",
 			width: width || 0,
 			height: height || 0,
@@ -87,23 +71,87 @@ const Map = ({
 		ref: ref
 	}
 
+		//mock data fetch
+	useEffect(() => {
+		if(!fetchedData){
+			const FetchData = async () => {
+				// https://github.com/topojson/us-atlas
+				const usData = require('./../../mockData/us-10m.json')
+				setStateData(usData)
+			}
+			FetchData()
+			setFetchedData(true)
+		}
+	},[fetchedData])
+
+	//setup D3 + TopoJson + Choropleth map
+	useEffect(() => {
+		if(
+			gRef && gRef.current
+		){
+
+			const d3Path = dg
+				.geoPath()
+			
+			const enterStates = e => {
+		    e.append("path")
+		    .attr("d", d3Path)
+		    .style('vector-effect', 'non-scaling-stroke')
+		    .attr('class', 'boundary')
+		  	// .on('click', clickedState)
+		  }
+
+		  const updateStates = u => {
+		  	//zoom fn
+				const zoomed = () => {
+		        d3Select.selectAll('path.boundary')
+		        .attr('transform', d3Select.event.transform);
+		    }
+
+				const zoom = d3Z.zoom()
+		      .scaleExtent([1, 8])
+		      .on('zoom', zoomed);
+
+		    d3Select.select('#map-svg').call(zoom);
+		  }
+
+			//get svg && g elements in d3-land
+			const d3SVG = d3Select.select('#map-svg')
+			const d3g = d3Select.select('#map-g')
+			
+			const stateFeats = topo.feature(stateData, stateData.objects.states).features
+			
+	   	const statePathsDJ = d3SVG
+	    	.select('#map-g').selectAll('path')
+	    	.data(stateFeats)
+  		statePathsDJ.join(enterStates, updateStates)
+		}
+	})
 	return(
 		<figure {...figProps}>
 				{/* wait till useDimension finishes */}
 				{width && height && 
-					<svg {...svgProps}>
-						<g transform={`translate(${inheritedPadding},${inheritedPadding})`}>
-							<text 
-								className="plain-text"
-								alignmentBaseline="hanging">
-								Map
-							</text>
-							{paths && paths}
-						</g>
-					</svg>
+					<Fragment>
+						<h1 className="map-title">Map</h1>
+						<svg {...svgProps}>
+							<g 
+								id="map-g"
+								transform={`translate(${inheritedPadding},${inheritedPadding})`}
+								ref={gRef}>
+								
+							</g>
+						</svg>
+					</Fragment>
 				}
 		</figure>
 	)
 };
 
-export default Map;
+export default MapBox;
+/*
+	<text 
+		className="plain-text"
+		alignmentBaseline="hanging">
+		Map
+	</text>
+*/ 
