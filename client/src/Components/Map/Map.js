@@ -1,11 +1,22 @@
-import React, { useState, useEffect, useRef , Fragment} from 'react';
+import React, { 
+	useState, 
+	useEffect, 
+	useRef,
+	useContext,
+	Fragment
+} from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
-import { scaleBand, scaleLinear } from 'd3-scale'
+import { scaleSequential, scaleBand, scaleLinear } from 'd3-scale'
 import * as dg from 'd3-geo'
 import * as d3Select from 'd3-selection'
+import * as dsc from 'd3-scale-chromatic'
 import * as d3Z from 'd3-zoom'
 import * as topo from "topojson-client"
 import './Map.scss';
+
+//State
+import { AppContext } from './../../StatsViewer/State/AppContext'
+
 
 // Components
 
@@ -15,7 +26,10 @@ const MapBox = ({
 	h,
 	mapFile
 }) => {
-	
+
+	//state 
+	const {statsData : { min, max, data: choroColorData }} = useContext(AppContext);
+
 	const [divSize] = useState({w: 975, h: 610})
 	const [centerX] = useState(divSize.w / 2)
 	const [centerY] = useState(divSize.h / 2)
@@ -27,7 +41,12 @@ const MapBox = ({
 	const chartPadding = 20;
 	const whiteStroke = '#a9b7c9'
 	const boxFill = 'rgb(38,49,20)'
-	const gRef = useRef()
+	const gRef = useRef() 
+
+	//prepare the d3 color-scale
+	const colorScale = scaleSequential(dsc.interpolateGreens)
+		.domain([min, max])
+		
 
 	/*
 		SVG && Chart 'inner' Dimensions
@@ -125,12 +144,16 @@ const MapBox = ({
 		        .duration(550)
 		        .attr("transform", `translate(${ centerX },${centerY}) scale(${k}) translate(${-x},${-y})`)
 		  }
-
+		  
 			const enterStates = e => {
 		    e.append("path")
 		    .attr("d", d3Path)
 		    .style('vector-effect', 'non-scaling-stroke')
 		    .attr('class', 'boundary')
+		    .attr('fill', d => { 
+		    	let stateStatValue = choroColorData.filter(st => st.x === d.properties.name)[0].y
+		    	return colorScale(stateStatValue)
+		    })
 		  	.on('click', clickedState)
 		  }
 
