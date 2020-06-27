@@ -4,7 +4,6 @@ import React, {
 } from 'react';
 import './index.scss'
 
-import RTT from 'react-tooltip';
 //Components
 import Dropdown from './../Components/Dropdown'
 import Scalar from './../Components/Scalar'
@@ -111,15 +110,13 @@ const StatsViewer = () => {
 					col="col-12"
 					h="300px"
 				/>
-				{/*
 				<MapBox 
 					data={statsData.data}
 					mapFile={stateFile}
 					dataMapKey={'x'}
 					col="col-12"
-					h="300px"
+					h="600px"
 				/>
-				*/}
 
 				<figure />
 			</section>
@@ -127,10 +124,7 @@ const StatsViewer = () => {
 
 	}
 
-	return <Fragment>
-		<section id="app-wrapper">{svContent}</section>
-		<RTT />
-	</Fragment>;
+	return <section id="app-wrapper">{svContent}</section>;
 };
 
 export default StatsViewer; 
