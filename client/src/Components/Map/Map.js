@@ -122,13 +122,15 @@ const MapBox = ({
 		  	const gSelection = d3Select.select(gRef.current)
 		  	var x, y, k;
 		    const didNotClickCurrentState = selectedState !== d
+		    
 		    if (d && didNotClickCurrentState) {
+		    
 		      var centroid = d3Path.centroid(d);
-		      
 		      x = centroid[0];
 		      y = centroid[1];
 		      k = 5;
 		      selectedState = d;
+		    
 		    } else {
 		      x = divSize.w / 2;
 		      y = divSize.h / 2;
@@ -136,13 +138,12 @@ const MapBox = ({
 		      selectedState = null;
 		    }
 
-		    //set class, pick-up orange color
-		    gSelection.selectAll("path")
-		      .classed("active", selectedState ? d => d === selectedState : false);
-
+		    //animate transition
 		    gSelection.transition()
 		        .duration(550)
 		        .attr("transform", `translate(${ centerX },${centerY}) scale(${k}) translate(${-x},${-y})`)
+
+
 		  }
 		  
 			const enterStates = e => {
@@ -164,11 +165,11 @@ const MapBox = ({
 		        .attr('transform', d3Select.event.transform);
 		    }
 
-				const zoom = d3Z.zoom()
-		      .scaleExtent([1, 8])
-		      .on('zoom', zoomed);
+				// const zoom = d3Z.zoom()
+		  //     .scaleExtent([1, 8])
+		  //     .on('zoom', zoomed);
 
-		    d3Select.select('#map-svg').call(zoom);
+		  //   d3Select.select('#map-svg').call(zoom);
 		  }
 
 			//get svg && g elements in d3-land
