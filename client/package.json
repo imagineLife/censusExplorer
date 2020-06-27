@@ -32,7 +32,8 @@
     "style-loader": "^1.2.1",
     "topojson-client": "^3.1.0",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "websocket-extensions": "^0.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
