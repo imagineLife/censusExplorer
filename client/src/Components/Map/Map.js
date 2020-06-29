@@ -6,7 +6,7 @@ import React, {
 	Fragment
 } from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
-import { scaleSequential, scaleBand, scaleLinear } from 'd3-scale'
+import { scaleSequential } from 'd3-scale'
 import * as dg from 'd3-geo'
 import * as d3Select from 'd3-selection'
 import * as dsc from 'd3-scale-chromatic'
@@ -45,7 +45,7 @@ const MapBox = ({
 
 	//prepare the d3 color-scale
 	const colorScale = scaleSequential(dsc.interpolateGreens)
-		.domain([min, max])
+		.domain([0, max]) //min
 		
 
 	/*

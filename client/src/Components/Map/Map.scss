@@ -7,6 +7,7 @@
 }
 .boundary {
   cursor: pointer;
+  transition: all 300ms;
   
 
   /* 
@@ -30,7 +31,8 @@
 
   &:hover{
     /*fill: $white-4;*/
-    stroke-width: 2px;
+    fill: rgb(125,125,0);
+    /*stroke-width: 2px;*/
     stroke-dasharray: none;
   };
 
