@@ -36,6 +36,7 @@ $blue: rgb(64,126,154);
 $blue-dim: rgb(45,85,110);
 $blue-dark: rgb(32,46,77);
 $blue-darkest: rgb(20,22,49);
+$blue-black: rgb(15,15,29);
 
 /*	Purple 	*/
 $purple-brightest: rgb(128,94,216);
@@ -70,7 +71,7 @@ $white-050: rgb(8,14,18);
 /*  
 	"Palette" colors
 */
-$body-bg-normal: $white-0;
+$body-bg-normal: $white-050;
 $body-bg-dark: $white-050;
 $body-bg-light: $white-4;
 $body-bg-bright: $white-5;
