@@ -87,6 +87,7 @@ const StatsViewer = () => {
 					axis
 					col="col-6"
 					h="300px"
+					title={selectedStatKey}
 				/>
 				<BarChart 
 					data={statsData.binnedCounts}
@@ -96,6 +97,7 @@ const StatsViewer = () => {
 					ticks={4}
 					col="col-6"
 					h="300px"
+					title="Binnned Quartiles"
 				/>
 				<Lollipop 
 					data={statsData.data}
