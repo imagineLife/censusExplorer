@@ -24,7 +24,8 @@ const MapBox = ({
 	col,
 	data,
 	h,
-	mapFile
+	mapFile,
+	title
 }) => {
 
 	//state 
@@ -189,7 +190,7 @@ const MapBox = ({
 				{/* wait till useDimension finishes */}
 				{width && height && 
 					<Fragment>
-						<h1 className="map-title">Map</h1>
+						<h1 className="map-title">{title}</h1>
 						<svg {...svgProps}>
 							<g 
 								id="map-g"
