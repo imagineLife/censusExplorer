@@ -14,7 +14,7 @@ import ReactTooltip from 'react-tooltip';
 //State
 import { AppContext } from './../../StatsViewer/State/AppContext'
 
-const Scatterplot = ({axis, col, h, xStat}) => {
+const Scatterplot = ({axis, col, h, xStat, title}) => {
 
 	const {statsList} = useContext(AppContext);
 	
@@ -164,7 +164,7 @@ const Scatterplot = ({axis, col, h, xStat}) => {
 							<text 
 								className="plain-text"
 								alignmentBaseline="hanging">
-									Scatterplot
+									{title}
 							</text>
 							{xAxis}
 							{yAxis}
