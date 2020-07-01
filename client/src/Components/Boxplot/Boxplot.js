@@ -14,7 +14,8 @@ const Boxplot = ({
 	orientation,
 	axis,
 	h,
-	col
+	col,
+	title
 }) => {
 	
 	//get dims, configured from props
