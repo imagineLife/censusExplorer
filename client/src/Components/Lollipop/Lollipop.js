@@ -12,7 +12,8 @@ const Lollipop = ({
 	data,
 	h,
 	orientation,
-	ticks
+	ticks,
+	title
 }) => {
 	
 	//get dims, configured from props
@@ -147,7 +148,7 @@ const Lollipop = ({
 							<text 
 								className="plain-text"
 								alignmentBaseline="hanging">
-								Lollipop
+								{title}
 							</text>
 
 							{axis && yAxis}
