@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useDimensions from './../../Hooks/UseDimensions'
 import { scaleBand, scaleLinear } from 'd3-scale'
 import './BarChart.scss';
@@ -12,7 +12,8 @@ const BarChart = ({
 	h,
 	orientation,
 	ticks,
-	yDomain
+	yDomain,
+	title
 }) => {
 	
 	//get dims, configured from props
@@ -133,7 +134,7 @@ const BarChart = ({
 							<text 
 								className="plain-text"
 								alignmentBaseline="hanging">
-								Binned Ranges
+								{title}
 							</text>
 
 							{axis && yAxis}
