@@ -10,7 +10,7 @@ import { scaleSequential } from 'd3-scale'
 import * as dg from 'd3-geo'
 import * as d3Select from 'd3-selection'
 import * as dsc from 'd3-scale-chromatic'
-import * as d3Z from 'd3-zoom'
+// import * as d3Z from 'd3-zoom'
 import * as topo from "topojson-client"
 import './Map.scss';
 
@@ -29,7 +29,7 @@ const MapBox = ({
 }) => {
 
 	//state 
-	const {statsData : { min, max, data: choroColorData }} = useContext(AppContext);
+	const {statsData : { max, data: choroColorData }} = useContext(AppContext); //min
 
 	const [divSize] = useState({w: 975, h: 610})
 	const [centerX] = useState(divSize.w / 2)
@@ -40,36 +40,13 @@ const MapBox = ({
 	const [stateData, setStateData] = useState(null)
 	const inheritedPadding = 8;
 	const chartPadding = 20;
-	const whiteStroke = '#a9b7c9'
-	const boxFill = 'rgb(38,49,20)'
+	// const whiteStroke = '#a9b7c9'
+	// const boxFill = 'rgb(38,49,20)'
 	const gRef = useRef() 
 
 	//prepare the d3 color-scale
 	const colorScale = scaleSequential(dsc.interpolateGreens)
 		.domain([0, max]) //min
-		
-
-	/*
-		SVG && Chart 'inner' Dimensions
-	*/
-	let twoPads;
-	let wLP, hLP;
-	let chartWidth, chartHeight;
-
-	if(width && height){
-		//padding
-		twoPads = inheritedPadding * 2
-		let chartDoublePad = chartPadding * 2;
-		
-		//svg dims without padding
-		wLP = width - twoPads
-		hLP = height - twoPads
-		
-		//chart dims with MORE padding
-		chartWidth = width - chartDoublePad;
-		chartHeight = height - chartDoublePad;
-
-	}
 
 	/*
 		SVG Props
@@ -159,30 +136,15 @@ const MapBox = ({
 		  	.on('click', clickedState)
 		  }
 
-		  const updateStates = u => {
-		  	//zoom fn
-				const zoomed = () => {
-		        d3Select.selectAll('path.boundary')
-		        .attr('transform', d3Select.event.transform);
-		    }
-
-				// const zoom = d3Z.zoom()
-		  //     .scaleExtent([1, 8])
-		  //     .on('zoom', zoomed);
-
-		  //   d3Select.select('#map-svg').call(zoom);
-		  }
-
 			//get svg && g elements in d3-land
 			const d3SVG = d3Select.select('#map-svg')
-			const d3g = d3Select.select('#map-g')
 			
 			const stateFeats = topo.feature(stateData, stateData.objects.states).features
 			
 	   	const statePathsDJ = d3SVG
 	    	.select('#map-g').selectAll('path')
 	    	.data(stateFeats)
-  		statePathsDJ.join(enterStates, updateStates)
+  		statePathsDJ.join(enterStates)
 		}
 	})
 	return(
